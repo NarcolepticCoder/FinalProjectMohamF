@@ -13,7 +13,8 @@ namespace GraphQL.Services
             _repo = repo;
         }
 
-        public async Task AssignUserRoleAsync(Guid affectedUserId, Guid newRoleId, Guid currentUserId)
+        public async Task<AssignRoleResult> AssignUserRoleAsync(
+    Guid affectedUserId, Guid newRoleId, Guid currentUserId)
         {
             var user = await _repo.GetUserByIdAsync(affectedUserId)
                 ?? throw new InvalidOperationException("User not found");
@@ -24,25 +25,39 @@ namespace GraphQL.Services
                 ?? throw new InvalidOperationException("Role not found");
 
             if (user.RoleId == newRole.Id)
-                return; // no-op, nothing changed
+            {
+                return new AssignRoleResult
+                {
+                    UserId = user.Id,
+                    RoleId = user.RoleId,
+                    FromRole = oldRole,
+                    ToRole = newRole.Name
+                };
+            }
 
-            // update role
             user.RoleId = newRole.Id;
             user.Role = newRole;
             await _repo.UpdateUserAsync(user);
 
-            // emit security event
             var evt = new SecurityEvents
             {
                 Id = Guid.NewGuid(),
-                AuthorUserId = currentUserId, // who did it
-                AffectedUserId = affectedUserId, // who was changed
+                AuthorUserId = currentUserId,
+                AffectedUserId = affectedUserId,
                 EventType = "RoleAssigned",
                 Details = $"from={oldRole} to={newRole.Name}",
                 OccurredUtc = DateTime.UtcNow
             };
 
             await _repo.AddSecurityEventAsync(evt);
+
+            return new AssignRoleResult
+            {
+                UserId = user.Id,
+                RoleId = newRole.Id,
+                FromRole = oldRole,
+                ToRole = newRole.Name
+            };
         }
     }
 }

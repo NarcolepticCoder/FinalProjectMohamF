@@ -8,6 +8,12 @@
 
   <ItemGroup>
 
+    <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.8" />
+
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="15.1.8" />
+
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="15.1.8" />
+
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
 <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
