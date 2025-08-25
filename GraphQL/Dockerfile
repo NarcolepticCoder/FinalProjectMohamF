@@ -1,25 +1,18 @@
-# Build stage
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and csproj files
-COPY FinalProjectMohamF.sln ./
-COPY GraphQL/GraphQL.csproj GraphQL/
-COPY ServerApp/ServerApp.csproj ServerApp/
-COPY Data/Data.csproj Data/
-
-# Restore dependencies
-RUN dotnet restore FinalProjectMohamF.sln
+# Copy the solution and restore first
+COPY ["FinalProjectMohamF.sln", "./"]
+COPY ["GraphQL/GraphQL.csproj", "GraphQL/"]
+RUN dotnet restore "GraphQL/GraphQL.csproj"
 
 # Copy everything else
 COPY . .
+WORKDIR "/src/GraphQL"
+RUN dotnet build -c Release -o /app/build
+RUN dotnet publish -c Release -o /app/publish
 
-# Build and publish GraphQL
-WORKDIR /src/GraphQL
-RUN dotnet publish -c Release -o /app
-
-# Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "GraphQL.dll"]
