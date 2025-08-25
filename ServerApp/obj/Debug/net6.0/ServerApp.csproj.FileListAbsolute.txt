@@ -31,3 +31,4 @@
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net6.0/ServerApp.pdb
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net6.0/ServerApp.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net6.0/ref/ServerApp.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net6.0/ServerApp.sourcelink.json
