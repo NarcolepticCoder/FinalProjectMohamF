@@ -8,9 +8,9 @@ namespace Data.Entities
         public string? Details { get; set; }
 
         public Guid AuthorUserId { get; set; }
-        public Users AuthorUser { get; set; } = default!;
+        public User AuthorUser { get; set; } = default!;
 
         public Guid AffectedUserId { get; set; }
-        public Users AffectedUser { get; set; } = default!;
+        public User AffectedUser { get; set; } = default!;
     }
 }

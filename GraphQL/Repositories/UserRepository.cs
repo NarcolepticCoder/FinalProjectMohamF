@@ -13,13 +13,13 @@ namespace GraphQL.Repositories
             _db = db;
         }
 
-        public async Task<Users?> GetUserByIdAsync(Guid userId) =>
+        public async Task<User?> GetUserByIdAsync(Guid userId) =>
             await _db.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == userId);
 
         public async Task<Roles?> GetRoleByIdAsync(Guid roleId) =>
             await _db.Roles.FirstOrDefaultAsync(r => r.Id == roleId);
 
-        public async Task UpdateUserAsync(Users user)
+        public async Task UpdateUserAsync(User user)
         {
             _db.Users.Update(user);
             await _db.SaveChangesAsync();

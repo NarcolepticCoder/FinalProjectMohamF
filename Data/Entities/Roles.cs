@@ -6,6 +6,6 @@ public class Roles
         public string Name { get; set; } = default!;
         public string? Description { get; set; }
 
-        public ICollection<Users> Users { get; set; } = new List<Users>();
+        public ICollection<User> Users { get; set; } = new List<User>();
         public ICollection<RoleClaims> RoleClaim { get; set; } = new List<RoleClaims>();
     }

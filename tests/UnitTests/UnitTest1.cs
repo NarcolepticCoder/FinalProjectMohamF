@@ -17,7 +17,7 @@ namespace UnitTests
             var oldRole = new Roles { Id = Guid.NewGuid(), Name = "BasicUser" };
             var newRole = new Roles { Id = Guid.NewGuid(), Name = "AuthObserver" };
 
-            var affectedUser = new Users
+            var affectedUser = new User
             {
                 Id = affectedUserId,
                 Email = "jane@example.com",

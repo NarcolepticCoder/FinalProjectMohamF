@@ -1,6 +1,6 @@
 namespace Data.Entities
 {
-    public class Users
+    public class User
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string ExternalId { get; set; } = default!;

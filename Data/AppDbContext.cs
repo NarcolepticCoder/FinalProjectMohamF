@@ -7,7 +7,7 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Users> Users => Set<Users>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<Roles> Roles => Set<Roles>();
     public DbSet<Claims> Claims => Set<Claims>();
     public DbSet<RoleClaims> RoleClaims => Set<RoleClaims>();
@@ -18,12 +18,12 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         // Unique Email
-        modelBuilder.Entity<Users>()
+        modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
 
         // User → Role (many-to-one)
-        modelBuilder.Entity<Users>()
+        modelBuilder.Entity<User>()
             .HasOne(u => u.Role)
             .WithMany(r => r.Users)
             .HasForeignKey(u => u.RoleId);
