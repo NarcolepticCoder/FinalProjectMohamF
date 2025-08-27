@@ -12,7 +12,7 @@ namespace GraphQL.Services
         _repo = repo;
     }
 
-    public async Task AuditLoginAsync(string email, string externalId)
+    public async Task AuditLoginAsync(string email, string externalId, string provider)
     {
         if (string.IsNullOrEmpty(email)) return;
 
@@ -24,8 +24,10 @@ namespace GraphQL.Services
             Id = Guid.NewGuid(),
             OccurredUtc = DateTime.UtcNow,
             EventType = "LoginSuccess",
+            Details = $"provider={provider}",
             AuthorUserId = user.Id,
             AffectedUserId = user.Id
+            
         };
 
         await _repo.AddAuditEventAsync(audit);
@@ -43,6 +45,7 @@ namespace GraphQL.Services
             Id = Guid.NewGuid(),
             OccurredUtc = DateTime.UtcNow,
             EventType = "LogoutSuccess",
+            Details = "local sign out",
             AuthorUserId = user.Id,
             AffectedUserId = user.Id
         };

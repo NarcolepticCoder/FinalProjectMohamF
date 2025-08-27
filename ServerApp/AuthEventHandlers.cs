@@ -18,13 +18,16 @@ public static class AuthEventHandlers
         // ✅ ExternalId from NameIdentifier (instead of "sub")
         var externalId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value
           ?? throw new InvalidOperationException("No NameIdentifier claim found.");
-        Console.WriteLine(email + "Testing if this works....." + externalId);
+        
+        var provider = context.Scheme?.Name ?? "Unknown";
+
+        
         var mutation = new
         {
             query = @" mutation($input: AuditDtoInput!) 
         { auditLogin(input: $input) }"
         ,
-            variables = new { input = new { Email = email, ExternalId = externalId } }
+            variables = new { input = new { Email = email, ExternalId = externalId, Provider = provider } }
         };
         await httpClient.PostAsJsonAsync("graphql", mutation);
 
@@ -46,7 +49,7 @@ public static class AuthEventHandlers
         if (string.IsNullOrEmpty(email))
             return;
 
-        Console.WriteLine(email + "Testing if this works.....part 2" + externalId);
+        
         var mutation = new
         {
             query = @" mutation($input: AuditDtoInput!) 
@@ -72,7 +75,7 @@ public static class AuthEventHandlers
         if (string.IsNullOrEmpty(email))
             return;
 
-        Console.WriteLine(email + " Testing local logout... part 2 " + externalId);
+        
 
         var mutation = new
         {

@@ -15,7 +15,7 @@ namespace GraphQL.Mutations
 
         public async Task<string> AuditLogin(AuditDto input)
         {
-            await _auditService.AuditLoginAsync(input.Email, input.ExternalId);
+            await _auditService.AuditLoginAsync(input.Email, input.ExternalId, input.Provider);
             return "Login audit recorded";
         }
 
@@ -27,5 +27,5 @@ namespace GraphQL.Mutations
     }
 
 // DTO remains the same
-public record AuditDto(string Email, string ExternalId);
+public record AuditDto(string Email, string ExternalId, string? Provider = null);
 }
