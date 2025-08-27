@@ -1,87 +1,86 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.EntityFrameworkCore;
-using Data;
-using Data.Entities;
+using System.Net.Http.Json;
+using System.Security.Claims;
 
 public static class AuthEventHandlers
 {
     public static async Task AuditLoginAsync(TokenValidatedContext context)
     {
-        var db = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
+        var factory = context.HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>();
+        var httpClient = factory.CreateClient("ApiClient");
 
-        var email = context.Principal?.FindFirst("email")?.Value
-                    ?? context.Principal?.Identity?.Name
-                    ?? throw new InvalidOperationException("Email claim not found.");
+        // ✅ Email fallback chain
+        var email = context.Principal?.FindFirst(ClaimTypes.Email)?.Value
+          ?? context.Principal?.FindFirst("preferred_username")?.Value
+          ?? context.Principal?.Identity?.Name
+          ?? throw new InvalidOperationException("No usable identifier claim found.");
 
-        // check if user exists
-        var user = await db.Users
-            .Include(u => u.Role)
-            .FirstOrDefaultAsync(u => u.Email == email);
-
-        if (user == null)
+        // ✅ ExternalId from NameIdentifier (instead of "sub")
+        var externalId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value
+          ?? throw new InvalidOperationException("No NameIdentifier claim found.");
+        Console.WriteLine(email + "Testing if this works....." + externalId);
+        var mutation = new
         {
-            // create default role if needed
-            var defaultRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "BasicUser");
-            if (defaultRole == null)
-            {
-                defaultRole = new Roles { Id = Guid.NewGuid(), Name = "BasicUser" };
-                db.Roles.Add(defaultRole);
-                await db.SaveChangesAsync();
-            }
-
-            user = new User
-            {
-                Id = Guid.NewGuid(),
-                ExternalId = context.Principal!.FindFirst("sub")!.Value,
-                Email = email,
-                RoleId = defaultRole.Id
-            };
-
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-        }
-
-        // add audit record
-        var audit = new SecurityEvents
-        {
-            Id = Guid.NewGuid(),
-            OccurredUtc = DateTime.UtcNow,
-            EventType = "LoginSuccess",
-            AuthorUserId = user.Id,
-            AffectedUserId = user.Id
+            query = @" mutation($input: AuditDtoInput!) 
+        { auditLogin(input: $input) }"
+        ,
+            variables = new { input = new { Email = email, ExternalId = externalId } }
         };
+        await httpClient.PostAsJsonAsync("graphql", mutation);
 
-        db.SecurityEvents.Add(audit);
-        await db.SaveChangesAsync();
     }
+
     public static async Task AuditLogoutAsync(RedirectContext context)
     {
-        var db = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
+        var factory = context.HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>();
+        var httpClient = factory.CreateClient("ApiClient");
 
-        var email = context.HttpContext.User?.FindFirst("email")?.Value 
-                    ?? context.HttpContext.User?.Identity?.Name;
+        // ✅ Email fallback chain
+        var email = context.HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value
+                 ?? context.HttpContext.User?.FindFirst("preferred_username")?.Value
+                 ?? context.HttpContext.User?.Identity?.Name;
+
+        // ✅ ExternalId from NameIdentifier if available
+        var externalId = context.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
 
         if (string.IsNullOrEmpty(email))
-        {
-            return; // nothing to log
-        }
+            return;
 
-        var user = db.Users.FirstOrDefault(u => u.Email == email);
-        if (user == null)
+        Console.WriteLine(email + "Testing if this works.....part 2" + externalId);
+        var mutation = new
         {
-            return; // user not tracked locally
-        }
-
-        var audit = new SecurityEvents
-        {
-            Id = Guid.NewGuid(),
-            OccurredUtc = DateTime.UtcNow,
-            EventType = "LogoutSuccess",
-            AuthorUserId = user.Id,
-            AffectedUserId = user.Id
+            query = @" mutation($input: AuditDtoInput!) 
+        { auditLogout(input: $input) }"
+        ,
+            variables = new { input = new { Email = email, ExternalId = externalId } }
         };
+        await httpClient.PostAsJsonAsync("graphql", mutation);
 
-        db.SecurityEvents.Add(audit);
-        await db.SaveChangesAsync();
+
+    }
+    public static async Task AuditLogoutLocalAsync(HttpContext context)
+    {
+        var factory = context.RequestServices.GetRequiredService<IHttpClientFactory>();
+        var httpClient = factory.CreateClient("ApiClient");
+
+        var email = context.User?.FindFirst(ClaimTypes.Email)?.Value
+                    ?? context.User?.FindFirst("preferred_username")?.Value
+                    ?? context.User?.Identity?.Name;
+
+        var externalId = context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+
+        if (string.IsNullOrEmpty(email))
+            return;
+
+        Console.WriteLine(email + " Testing local logout... part 2 " + externalId);
+
+        var mutation = new
+        {
+            query = @" mutation($input: AuditDtoInput!) 
+        { auditLogout(input: $input) }"
+        ,
+            variables = new { input = new { Email = email, ExternalId = externalId } }
+        };
+        await httpClient.PostAsJsonAsync("graphql", mutation);
     }
 }

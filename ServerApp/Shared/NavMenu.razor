@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Components.Authorization
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">ServerApp</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -17,10 +20,30 @@
     </nav>
 </div>
 
+<AuthorizeView>
+    <Authorized>
+        <button class="btn btn-secondary" @onclick="SignOut">Sign out</button>
+    </Authorized>
+    <NotAuthorized>
+        <button class="btn btn-primary" @onclick='@(() => SignIn("Okta"))'>Sign in with Okta</button>
+        <button class="btn btn-danger" @onclick='@(() => SignIn("Google"))'>Sign in with Google</button>
+    </NotAuthorized>
+</AuthorizeView>
+
 @code {
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    void SignIn(string provider)
+    {
+        Navigation.NavigateTo($"/Account/SignIn?provider={provider}&returnUrl=/", forceLoad: true);
+    }
+
+    void SignOut()
+    {
+        Navigation.NavigateTo("/Account/SignOut?returnUrl=/", forceLoad: true);
+    }
 
     private void ToggleNavMenu()
     {
