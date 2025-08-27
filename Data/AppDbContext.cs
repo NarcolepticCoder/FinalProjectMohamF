@@ -21,6 +21,35 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+            
+        var basicUserRoleId = Guid.NewGuid();
+        var authObserverRoleId = Guid.NewGuid();
+        var securityAuditorRoleId = Guid.NewGuid();
+
+        modelBuilder.Entity<Roles>().HasData(
+            new Roles { Id = basicUserRoleId, Name = "BasicUser", Description = "Default role for new users" },
+            new Roles { Id = authObserverRoleId, Name = "AuthObserver", Description = "Can view authentication events" },
+            new Roles { Id = securityAuditorRoleId, Name = "SecurityAuditor", Description = "Can view auth events & role changes" }
+        );
+
+        // --- Seed Claims ---
+        var viewAuthEventsClaimId = Guid.NewGuid();
+        var roleChangesClaimId = Guid.NewGuid();
+
+        modelBuilder.Entity<Claims>().HasData(
+            new Claims { Id = viewAuthEventsClaimId, Type = "permissions", Value = "Audit.ViewAuthEvents" },
+            new Claims { Id = roleChangesClaimId, Type = "permissions", Value = "Audit.RoleChanges" }
+        );
+
+        // --- Seed RoleClaims mapping ---
+        modelBuilder.Entity<RoleClaims>().HasData(
+            // AuthObserver → Audit.ViewAuthEvents
+            new RoleClaims { RoleId = authObserverRoleId, ClaimId = viewAuthEventsClaimId },
+
+            // SecurityAuditor → both claims
+            new RoleClaims { RoleId = securityAuditorRoleId, ClaimId = viewAuthEventsClaimId },
+            new RoleClaims { RoleId = securityAuditorRoleId, ClaimId = roleChangesClaimId }
+        );
 
         // User → Role (many-to-one)
         modelBuilder.Entity<User>()

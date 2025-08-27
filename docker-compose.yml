@@ -20,11 +20,13 @@ services:
       - sqlserver
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=CommunicationDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - DOTNET_RUNNING_IN_CONTAINER=true
     ports:
-      - "5000:8080" # host:container
+      - "5000:80" # host:container
     networks:
       - appnetwork
+
 
   serverapp:
     build:
@@ -34,10 +36,21 @@ services:
     depends_on:
       - graphql
     environment:
-      - GraphQL__BaseUrl=http://graphql:8080
-      - ASPNETCORE_ENVIRONMENT=Development
+      - GraphQL__BaseUrl=http://graphql:80
+      - ASPNETCORE_URLS=https://+:443
+      - ASPNETCORE_HTTPS_PORT=443
+      - Okta__Authority=${Okta__Authority}
+      - Okta__ClientId=${Okta__ClientId}
+      - Okta__ClientSecret=${Okta__ClientSecret}
+      - Google__ClientId=${Google__ClientId}
+      - Google__ClientSecret=${Google__ClientSecret}
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=yourpassword
+    volumes:
+      - ${HOME}/.aspnet/https:/https:ro
     ports:
-      - "5001:8080"
+      - "5001:443"
     networks:
       - appnetwork
 

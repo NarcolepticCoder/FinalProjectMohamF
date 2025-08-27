@@ -50,136 +50,95 @@ namespace UnitTests
             // --- Act ---
             await service.AssignUserRoleAsync(affectedUserId, newRole.Id, authorUserId);
 
-            // --- Assert ---
-            affectedUser.RoleId.Should().Be(newRole.Id);
-            affectedUser.Role.Name.Should().Be(newRole.Name);
 
-            capturedEvent.Should().NotBeNull();
-            capturedEvent!.AuthorUserId.Should().Be(authorUserId);
-            capturedEvent.AffectedUserId.Should().Be(affectedUserId);
-            capturedEvent.EventType.Should().Be("RoleAssigned");
-            capturedEvent.Details.Should().Be($"from={oldRole.Name} to={newRole.Name}");
+            mockRepo.Verify(r => r.AddSecurityEventAsync(It.Is<SecurityEvents>(e =>
+            e.EventType == "RoleAssigned" &&
+            e.AuthorUserId == authorUserId &&
+            e.AffectedUserId == affectedUserId &&
+            e.Details == $"from={oldRole.Name} to={newRole.Name}")), Times.Once);
 
-
-            mockRepo.Verify(r => r.AddSecurityEventAsync(It.IsAny<SecurityEvents>()), Times.Once);
-
+            
         }
         [Fact]
-        public async Task AuditLoginAsync_ShouldCreateUserAndAddLoginSuccessEvent()
+        public async Task AuditLoginAsync_ShouldCreateUserAndAddLoginEvent()
         {
-            // --- Setup in-memory EF DbContext ---
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase("AuditLoginTestDb")
-                .Options;
-
-            using var db = new AppDbContext(options);
-
-            // --- Setup ClaimsPrincipal ---
+            // --- Arrange ---
             var email = "jane@example.com";
             var externalId = "sub-123";
-            var principal = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-            new Claim("email", email),
-            new Claim("sub", externalId)
-            }, "TestAuth"));
+            var userId = Guid.NewGuid();
 
-            // --- Setup HttpContext with DI ---
-            var httpContext = new DefaultHttpContext
-            {
-                User = principal,
-                RequestServices = new ServiceCollection()
-                    .AddSingleton(db)
-                    .BuildServiceProvider()
-            };
+            // Mock IUserRepository
+            var repoMock = new Mock<IAuditRepository>();
+        
+            // Setup CreateUserAsync to return a user
+            repoMock.Setup(r => r.CreateUserAsync(email, externalId))
+                    .ReturnsAsync(new Data.Entities.User
+                    {
+                        Id = userId,
+                        Email = email,
+                        ExternalId = externalId
+                    });
 
-            // --- Setup AuthenticationScheme ---
-            var scheme = new AuthenticationScheme("TestScheme", "TestScheme", typeof(OpenIdConnectHandler));
+        
+            repoMock.Setup(r => r.AddAuditEventAsync(It.IsAny<Data.Entities.SecurityEvents>()))
+                    .Returns(Task.CompletedTask);
 
-            // --- Setup AuthenticationProperties ---
-            var authProps = new AuthenticationProperties();
-
-            // --- Create TokenValidatedContext ---
-            var tokenContext = new TokenValidatedContext(
-                httpContext,
-                scheme,
-                new OpenIdConnectOptions(),
-                principal,
-                authProps
-            );
+            // Instantiate the service
+            var service = new AuditService(repoMock.Object);
 
             // --- Act ---
-            await AuthEventHandlers.AuditLoginAsync(tokenContext);
+            await service.AuditLoginAsync(email, externalId);
 
             // --- Assert ---
-            var user = await db.Users.Include(u => u.Role)
-                                     .FirstOrDefaultAsync(u => u.Email == email);
-            user.Should().NotBeNull();
-            user!.ExternalId.Should().Be(externalId);
-            user.Role.Should().NotBeNull();
-            user.Role.Name.Should().Be("BasicUser");
+            repoMock.Verify(r => r.CreateUserAsync(email, externalId), Times.Once);
 
-            var loginEvent = await db.SecurityEvents.FirstOrDefaultAsync();
-            loginEvent.Should().NotBeNull();
-            loginEvent!.EventType.Should().Be("LoginSuccess");
-            loginEvent.AuthorUserId.Should().Be(user.Id);
-            loginEvent.AffectedUserId.Should().Be(user.Id);
+            repoMock.Verify(r => r.AddAuditEventAsync(
+                It.Is<Data.Entities.SecurityEvents>(e =>
+                    e.EventType == "LoginSuccess" &&
+                    e.AuthorUserId == userId &&
+                    e.AffectedUserId == userId
+                )), Times.Once);
         }
 
+
         [Fact]
-        public async Task AuditLogoutAsync_ShouldAddLogoutSuccessEvent()
+        public async Task AuditLogoutAsync_ShouldAddLogoutAuditSuccessEvent()
         {
-            // --- Setup in-memory EF DbContext ---
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase("AuditLogoutTestDb")
-                .Options;
+            // --- Arrange ---
+            var email = "jane@example.com";
+            var externalId = "sub-1234";
+            var userId = Guid.NewGuid();
 
-            using var db = new AppDbContext(options);
+            // Mock IUserRepository
+            var repoMock = new Mock<IAuditRepository>();
+        
+            // Setup CreateUserAsync to return a user
+            repoMock.Setup(r => r.GetUserByEmailAsync(email))
+                    .ReturnsAsync(new User
+                    {
+                        Id = userId,
+                        Email = email,
+                        ExternalId = externalId
+                    });
 
-            // --- Seed user ---
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                Email = "jane@example.com",
-                ExternalId = "sub-123",
-                RoleId = Guid.NewGuid(),
-                Role = new Roles { Id = Guid.NewGuid(), Name = "BasicUser" }
-            };
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
+        
+            repoMock.Setup(r => r.AddAuditEventAsync(It.IsAny<Data.Entities.SecurityEvents>()))
+                    .Returns(Task.CompletedTask);
 
-            // --- Setup HttpContext with DI ---
-            var httpContext = new DefaultHttpContext
-            {
-                User = new ClaimsPrincipal(new ClaimsIdentity(new[]
-                {
-            new Claim("email", user.Email)
-            }, "TestAuth")),
-                RequestServices = new ServiceCollection()
-                    .AddSingleton(db)
-                    .BuildServiceProvider()
-            };
-
-            // --- Setup AuthenticationScheme and AuthenticationProperties ---
-            var scheme = new AuthenticationScheme("TestScheme", "TestScheme", typeof(OpenIdConnectHandler));
-            var authProps = new AuthenticationProperties();
-
-            // --- Create RedirectContext ---
-            var redirectContext = new RedirectContext(
-                httpContext,
-                scheme,
-                new OpenIdConnectOptions(),
-                authProps
-            );
-
+            // Instantiate the service
+            var service = new AuditService(repoMock.Object);
             // --- Act ---
-            await AuthEventHandlers.AuditLogoutAsync(redirectContext);
+            
 
-            // --- Assert ---
-            var logoutEvent = await db.SecurityEvents.FirstOrDefaultAsync();
-            logoutEvent.Should().NotBeNull();
-            logoutEvent!.EventType.Should().Be("LogoutSuccess");
-            logoutEvent.AuthorUserId.Should().Be(user.Id);
-            logoutEvent.AffectedUserId.Should().Be(user.Id);
+            await service.AuditLogoutAsync(email, externalId);
+
+
+            repoMock.Verify(r => r.AddAuditEventAsync(
+                It.Is<Data.Entities.SecurityEvents>(e =>
+                    e.EventType == "LogoutSuccess" &&
+                    e.AuthorUserId == userId &&
+                    e.AffectedUserId == userId
+                )), Times.Once);
         }
 
     

@@ -1,12 +1,17 @@
+using System.Security.Claims;
+using Data;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Configuration.AddEnvironmentVariables();
+builder.Services.AddControllers();
 
 builder.Services
   .AddAuthentication(options =>
@@ -26,12 +31,21 @@ builder.Services
       o.Scope.Clear();
       o.Scope.Add("openid"); o.Scope.Add("profile"); o.Scope.Add("email");
       o.GetClaimsFromUserInfoEndpoint = true;
+      o.CallbackPath = "/signin-oidc";
       // Hook events for audit logging:
       o.Events = new OpenIdConnectEvents
       {
-          OnTokenValidated = AuthEventHandlers.AuditLoginAsync,
+          OnTokenValidated = ctx =>
+          {
+              var identity = (ClaimsIdentity)ctx.Principal.Identity!;
+              identity.AddClaim(new Claim("idp", ctx.Scheme.Name)); // "Okta" or "Google"
+
+              // Call your existing audit handler
+              return AuthEventHandlers.AuditLoginAsync(ctx);
+          },
           OnRedirectToIdentityProviderForSignOut = AuthEventHandlers.AuditLogoutAsync
       };
+
   })
   .AddOpenIdConnect("Google", o =>
   {
@@ -43,11 +57,20 @@ builder.Services
       o.Scope.Clear();
       o.Scope.Add("openid"); o.Scope.Add("profile"); o.Scope.Add("email");
       o.GetClaimsFromUserInfoEndpoint = true;
+      o.CallbackPath = "/signin-google";
       o.Events = new OpenIdConnectEvents
       {
-          OnTokenValidated = AuthEventHandlers.AuditLoginAsync,
-          OnRedirectToIdentityProviderForSignOut = AuthEventHandlers.AuditLogoutAsync
+          OnTokenValidated = ctx =>
+          {
+              var identity = (ClaimsIdentity)ctx.Principal.Identity!;
+              identity.AddClaim(new Claim("idp", ctx.Scheme.Name)); // "Okta" or "Google"
+
+              // Call your existing audit handler
+              return AuthEventHandlers.AuditLoginAsync(ctx);
+          },
+          
       };
+
   });
 
 builder.Services.AddAuthorization(options =>
@@ -58,8 +81,16 @@ builder.Services.AddAuthorization(options =>
         p => p.RequireClaim("permissions", "Audit.ViewRoleChanges"));
 });
 
-var app = builder.Build();
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]!);
+});
 
+
+var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -73,7 +104,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
