@@ -66,6 +66,7 @@ namespace UnitTests
             var email = "jane@example.com";
             var externalId = "sub-123";
             var userId = Guid.NewGuid();
+            var provider = "Okta";
 
             // Mock IUserRepository
             var repoMock = new Mock<IAuditRepository>();
@@ -77,6 +78,7 @@ namespace UnitTests
                         Id = userId,
                         Email = email,
                         ExternalId = externalId
+                        
                     });
 
         
@@ -87,7 +89,7 @@ namespace UnitTests
             var service = new AuditService(repoMock.Object);
 
             // --- Act ---
-            await service.AuditLoginAsync(email, externalId);
+            await service.AuditLoginAsync(email, externalId, provider);
 
             // --- Assert ---
             repoMock.Verify(r => r.CreateUserAsync(email, externalId), Times.Once);
@@ -95,6 +97,7 @@ namespace UnitTests
             repoMock.Verify(r => r.AddAuditEventAsync(
                 It.Is<Data.Entities.SecurityEvents>(e =>
                     e.EventType == "LoginSuccess" &&
+                    e.Details == $"provider={provider}" &&
                     e.AuthorUserId == userId &&
                     e.AffectedUserId == userId
                 )), Times.Once);
@@ -136,6 +139,7 @@ namespace UnitTests
             repoMock.Verify(r => r.AddAuditEventAsync(
                 It.Is<Data.Entities.SecurityEvents>(e =>
                     e.EventType == "LogoutSuccess" &&
+                    e.Details == "local sign out" &&
                     e.AuthorUserId == userId &&
                     e.AffectedUserId == userId
                 )), Times.Once);
