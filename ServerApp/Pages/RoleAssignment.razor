@@ -57,11 +57,10 @@ else
 
         authorized = user.HasClaim("permissions", "Audit.RoleChanges");
 
-        if (authorized)
-        {
+    
             var userResult = await GraphQLClient.GetUsers.ExecuteAsync();
             availableUsers = userResult.Data?.Users;
-        }
+        
     }
 
     private async Task AssignRoleAsync()
@@ -109,7 +108,7 @@ else
 
             var result = await GraphQLClient.AssignRole
                 .ExecuteAsync(targetUser.Id, roleId.Value, authorUserId.Value);
-
+            
             if (result.Data?.AssignUserRole != null)
             {
                 Console.WriteLine($"Role assigned: {result.Data.AssignUserRole.FromRole} -> {result.Data.AssignUserRole.ToRole}");
@@ -125,9 +124,5 @@ else
         }
     }
 
-    public class RoleChangeDto
-    {
-        public string UserEmail { get; set; } = "";
-        public string NewRole { get; set; } = "BasicUser";
-    }
+    
 }

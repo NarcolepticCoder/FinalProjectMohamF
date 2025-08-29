@@ -37,4 +37,21 @@ namespace ServerApp.Components
             Subscribe(Operation.Watch(strategy: Strategy));
         }
     }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class UseGetSecurityEvents : global::StrawberryShake.Razor.UseQuery<global::ServerApp.IGetSecurityEventsResult>
+    {
+        [global::Microsoft.AspNetCore.Components.InjectAttribute]
+        internal global::ServerApp.GetSecurityEventsQuery Operation { get; set; } = default !;
+
+        protected override void OnInitialized()
+        {
+            Subscribe(Operation.Watch(strategy: Strategy));
+        }
+
+        protected override void OnParametersSet()
+        {
+            Subscribe(Operation.Watch(strategy: Strategy));
+        }
+    }
 }

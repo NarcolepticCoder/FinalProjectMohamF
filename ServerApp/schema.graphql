@@ -211,8 +211,8 @@ input ClaimsFilterInput {
 }
 
 type AssignRoleResult {
-  userId: UUID!
-  roleId: UUID!
+  authorUser: User!
+  affectedUser: User!
   fromRole: String!
   toRole: String!
 }

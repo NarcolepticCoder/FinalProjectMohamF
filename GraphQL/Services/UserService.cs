@@ -15,52 +15,53 @@ namespace GraphQL.Services
             _repo = repo;
         }
 
-        public async Task<AssignRoleResult> AssignUserRoleAsync(
-    Guid affectedUserId, Guid newRoleId, Guid currentUserId)
-        {
-            var user = await _repo.GetUserByIdAsync(affectedUserId)
-                ?? throw new InvalidOperationException("User not found");
+    public async Task<AssignRoleResult> AssignUserRoleAsync(
+        Guid affectedUserId, Guid newRoleId, Guid currentUserId)
+    {
+            // Get users
+            var affectedUser = await _repo.GetUserByIdAsync(affectedUserId)
+                ?? throw new InvalidOperationException("Target user not found");
 
-            var oldRole = user.Role?.Name ?? "None";
+            var authorUser = await _repo.GetUserByIdAsync(currentUserId)
+                ?? throw new InvalidOperationException("Current user not found");
 
+            // Save old role name
+            var oldRole = affectedUser.Role?.Name ?? "None";
+
+            // Get new role
             var newRole = await _repo.GetRoleByIdAsync(newRoleId)
                 ?? throw new InvalidOperationException("Role not found");
 
-            if (user.RoleId == newRole.Id)
+            // Update role if different
+            if (affectedUser.RoleId != newRole.Id)
             {
-                return new AssignRoleResult
-                {
-                    UserId = user.Id,
-                    RoleId = user.RoleId,
-                    FromRole = oldRole,
-                    ToRole = newRole.Name
-                };
+                affectedUser.RoleId = newRole.Id;
+                affectedUser.Role = newRole;
+                await _repo.UpdateUserAsync(affectedUser);
             }
 
-            user.RoleId = newRole.Id;
-            user.Role = newRole;
-            await _repo.UpdateUserAsync(user);
-
+            // Add security event
             var evt = new SecurityEvents
             {
-                Id = Guid.NewGuid(),
                 AuthorUserId = currentUserId,
                 AffectedUserId = affectedUserId,
                 EventType = "RoleAssigned",
                 Details = $"from={oldRole} to={newRole.Name}",
                 OccurredUtc = DateTime.UtcNow
             };
-
             await _repo.AddSecurityEventAsync(evt);
 
+            // Return full users
             return new AssignRoleResult
             {
-                UserId = user.Id,
-                RoleId = newRole.Id,
+                AuthorUser = authorUser,
+                AffectedUser = affectedUser,
                 FromRole = oldRole,
                 ToRole = newRole.Name
             };
         }
+
+
 
         public async Task<List<ClaimDto>> GetUserClaimsAsync(string externalId)
         {

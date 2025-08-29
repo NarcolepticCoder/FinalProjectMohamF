@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Moq;
 namespace UnitTests
 {
@@ -26,6 +27,14 @@ namespace UnitTests
 
             var oldRole = new Roles { Id = Guid.NewGuid(), Name = "BasicUser" };
             var newRole = new Roles { Id = Guid.NewGuid(), Name = "AuthObserver" };
+            var SecurityRole = new Roles { Id = Guid.NewGuid(), Name = "SecurityAuditor" };
+            var authorUser = new User
+            {
+                Id = authorUserId,
+                Email = "john@example.com",
+                Role = SecurityRole,
+                RoleId = SecurityRole.Id
+            };
 
             var affectedUser = new User
             {
@@ -37,6 +46,8 @@ namespace UnitTests
 
             // Mock repository or DbContext
             var mockRepo = new Mock<IUserRepository>();
+            mockRepo.Setup(r => r.GetUserByIdAsync(authorUserId))
+                    .ReturnsAsync(authorUser);
             mockRepo.Setup(r => r.GetUserByIdAsync(affectedUserId))
                     .ReturnsAsync(affectedUser);
             mockRepo.Setup(r => r.GetRoleByIdAsync(newRole.Id))

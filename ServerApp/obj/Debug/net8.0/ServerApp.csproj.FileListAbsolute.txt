@@ -75,3 +75,14 @@
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net8.0/ServerApp.pdb
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net8.0/ServerApp.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/Debug/net8.0/ref/ServerApp.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/.graphqlrc.json
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/HotChocolate.Language.SyntaxTree.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/HotChocolate.Transport.Abstractions.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/HotChocolate.Transport.Http.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/HotChocolate.Utilities.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/StrawberryShake.Core.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/StrawberryShake.Razor.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/StrawberryShake.Resources.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/StrawberryShake.Transport.Http.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/StrawberryShake.Transport.WebSockets.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/bin/Debug/net8.0/System.Reactive.dll

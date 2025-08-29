@@ -19,12 +19,24 @@ namespace GraphQL
         public IQueryable<Roles> GetRoles([Service] AppDbContext db) =>
             db.Roles;
 
-        [UsePaging]
-        [UseFiltering]
-        [UseSorting]
-        public IQueryable<SecurityEvents> GetSecurityEvents([Service] AppDbContext db) =>
-            db.SecurityEvents.OrderByDescending(e => e.OccurredUtc);
+        [UsePaging]           // optional if you want cursor paging
+        [UseFiltering]        // optional if you want filter args
+        [UseSorting]          // optional if you want sort args
+        public IQueryable<SecurityEvents> GetSecurityEvents(AppDbContext db)
+        {
 
+
+            // Ensure newest first
+            return db.SecurityEvents
+                     .Include(e => e.AuthorUser)
+        .ThenInclude(u => u.Role)
+    .Include(e => e.AffectedUser)
+        .ThenInclude(u => u.Role)
+    .OrderByDescending(e => e.OccurredUtc);
+   
+
+                 
+        }
         
         public async Task<List<ClaimDto>> GetUserClaims(string externalId, [Service] UserService userService)
         {

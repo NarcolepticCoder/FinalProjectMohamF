@@ -19,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.GetRolesQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.AssignRoleMutation>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.GetUsersQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.GetSecurityEventsQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.ServerClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.IServerClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             return new global::StrawberryShake.ClientBuilder<global::ServerApp.State.ServerClientStoreAccessor>("ServerClient", services, serviceCollection);
@@ -34,8 +35,17 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new global::StrawberryShake.Transport.Http.HttpConnection(() => clientFactory.CreateClient("ServerClient"));
             });
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetRoles_Roles_Roles>, global::ServerApp.State.GetRoles_Roles_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.AssignRole_AssignUserRole_AuthorUser_User>, global::ServerApp.State.AssignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.AssignRole_AssignUserRole_AffectedUser_User>, global::ServerApp.State.AssignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.AssignRole_AssignUserRole_AuthorUser_Role_Roles>, global::ServerApp.State.AssignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.AssignRole_AssignUserRole_AffectedUser_Role_Roles>, global::ServerApp.State.AssignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetUsers_Users_User>, global::ServerApp.State.GetUsers_Users_UserFromUserEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetUsers_Users_Role_Roles>, global::ServerApp.State.GetUsers_Users_Role_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.StringSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.BooleanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteSerializer>(services);
@@ -80,6 +90,14 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IResultPatcher<global::System.Text.Json.JsonDocument>, global::StrawberryShake.Json.JsonResultPatcher>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.GetUsersQuery>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.IGetUsersQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.GetUsersQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.IGetSecurityEventsResult>, global::ServerApp.State.GetSecurityEventsResultFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.IGetSecurityEventsResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.IGetSecurityEventsQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::ServerApp.IGetSecurityEventsResult>, global::ServerApp.State.GetSecurityEventsBuilder>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::ServerApp.IGetSecurityEventsResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::ServerApp.IGetSecurityEventsResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::ServerApp.IGetSecurityEventsResult>>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IResultPatcher<global::System.Text.Json.JsonDocument>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IResultPatcher<global::System.Text.Json.JsonDocument>, global::StrawberryShake.Json.JsonResultPatcher>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.GetSecurityEventsQuery>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.IGetSecurityEventsQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.GetSecurityEventsQuery>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityIdSerializer, global::ServerApp.State.ServerClientEntityIdFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.ServerClient>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::ServerApp.IServerClient>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::ServerApp.ServerClient>(sp));
@@ -323,18 +341,18 @@ namespace ServerApp
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial class AssignRole_AssignUserRole_AssignRoleResult : global::System.IEquatable<AssignRole_AssignUserRole_AssignRoleResult>, IAssignRole_AssignUserRole_AssignRoleResult
     {
-        public AssignRole_AssignUserRole_AssignRoleResult(global::System.Guid userId, global::System.Guid roleId, global::System.String fromRole, global::System.String toRole)
+        public AssignRole_AssignUserRole_AssignRoleResult(global::System.String fromRole, global::System.String toRole, global::ServerApp.IAssignRole_AssignUserRole_AuthorUser authorUser, global::ServerApp.IAssignRole_AssignUserRole_AffectedUser affectedUser)
         {
-            UserId = userId;
-            RoleId = roleId;
             FromRole = fromRole;
             ToRole = toRole;
+            AuthorUser = authorUser;
+            AffectedUser = affectedUser;
         }
 
-        public global::System.Guid UserId { get; }
-        public global::System.Guid RoleId { get; }
         public global::System.String FromRole { get; }
         public global::System.String ToRole { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AffectedUser AffectedUser { get; }
 
         public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AssignRoleResult? other)
         {
@@ -353,7 +371,7 @@ namespace ServerApp
                 return false;
             }
 
-            return (UserId.Equals(other.UserId)) && RoleId.Equals(other.RoleId) && FromRole.Equals(other.FromRole) && ToRole.Equals(other.ToRole);
+            return (FromRole.Equals(other.FromRole)) && ToRole.Equals(other.ToRole) && AuthorUser.Equals(other.AuthorUser) && AffectedUser.Equals(other.AffectedUser);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -381,10 +399,272 @@ namespace ServerApp
             unchecked
             {
                 int hash = 5;
-                hash ^= 397 * UserId.GetHashCode();
-                hash ^= 397 * RoleId.GetHashCode();
                 hash ^= 397 * FromRole.GetHashCode();
                 hash ^= 397 * ToRole.GetHashCode();
+                hash ^= 397 * AuthorUser.GetHashCode();
+                hash ^= 397 * AffectedUser.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AuthorUser_User : global::System.IEquatable<AssignRole_AssignUserRole_AuthorUser_User>, IAssignRole_AssignUserRole_AuthorUser_User
+    {
+        public AssignRole_AssignUserRole_AuthorUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IAssignRole_AssignUserRole_AuthorUser_Role role)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AuthorUser_Role Role { get; }
+
+        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AuthorUser_User? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Email.Equals(other.Email) && Role.Equals(other.Role);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((AssignRole_AssignUserRole_AuthorUser_User)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Email.GetHashCode();
+                hash ^= 397 * Role.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AffectedUser_User : global::System.IEquatable<AssignRole_AssignUserRole_AffectedUser_User>, IAssignRole_AssignUserRole_AffectedUser_User
+    {
+        public AssignRole_AssignUserRole_AffectedUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IAssignRole_AssignUserRole_AffectedUser_Role role)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AffectedUser_Role Role { get; }
+
+        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AffectedUser_User? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Email.Equals(other.Email) && Role.Equals(other.Role);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((AssignRole_AssignUserRole_AffectedUser_User)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Email.GetHashCode();
+                hash ^= 397 * Role.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AuthorUser_Role_Roles : global::System.IEquatable<AssignRole_AssignUserRole_AuthorUser_Role_Roles>, IAssignRole_AssignUserRole_AuthorUser_Role_Roles
+    {
+        public AssignRole_AssignUserRole_AuthorUser_Role_Roles(global::System.Guid id, global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Name { get; }
+
+        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AuthorUser_Role_Roles? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Name.Equals(other.Name);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((AssignRole_AssignUserRole_AuthorUser_Role_Roles)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Name.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AffectedUser_Role_Roles : global::System.IEquatable<AssignRole_AssignUserRole_AffectedUser_Role_Roles>, IAssignRole_AssignUserRole_AffectedUser_Role_Roles
+    {
+        public AssignRole_AssignUserRole_AffectedUser_Role_Roles(global::System.Guid id, global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Name { get; }
+
+        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AffectedUser_Role_Roles? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Name.Equals(other.Name);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((AssignRole_AssignUserRole_AffectedUser_Role_Roles)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Name.GetHashCode();
                 return hash;
             }
         }
@@ -399,14 +679,64 @@ namespace ServerApp
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial interface IAssignRole_AssignUserRole
     {
-        public global::System.Guid UserId { get; }
-        public global::System.Guid RoleId { get; }
         public global::System.String FromRole { get; }
         public global::System.String ToRole { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AffectedUser AffectedUser { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial interface IAssignRole_AssignUserRole_AssignRoleResult : IAssignRole_AssignUserRole
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AuthorUser
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AuthorUser_Role Role { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AuthorUser_User : IAssignRole_AssignUserRole_AuthorUser
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AffectedUser
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IAssignRole_AssignUserRole_AffectedUser_Role Role { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AffectedUser_User : IAssignRole_AssignUserRole_AffectedUser
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AuthorUser_Role
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Name { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AuthorUser_Role_Roles : IAssignRole_AssignUserRole_AuthorUser_Role
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AffectedUser_Role
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Name { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IAssignRole_AssignUserRole_AffectedUser_Role_Roles : IAssignRole_AssignUserRole_AffectedUser_Role
     {
     }
 
@@ -641,6 +971,571 @@ namespace ServerApp
     {
     }
 
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsResult : global::System.IEquatable<GetSecurityEventsResult>, IGetSecurityEventsResult
+    {
+        public GetSecurityEventsResult(global::ServerApp.IGetSecurityEvents_SecurityEvents? securityEvents)
+        {
+            SecurityEvents = securityEvents;
+        }
+
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents? SecurityEvents { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEventsResult? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (((SecurityEvents is null && other.SecurityEvents is null) || SecurityEvents != null && SecurityEvents.Equals(other.SecurityEvents)));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEventsResult)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (SecurityEvents != null)
+                {
+                    hash ^= 397 * SecurityEvents.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+
+    /// <summary>
+    /// A connection to a list of items.
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_SecurityEventsConnection : global::System.IEquatable<GetSecurityEvents_SecurityEvents_SecurityEventsConnection>, IGetSecurityEvents_SecurityEvents_SecurityEventsConnection
+    {
+        public GetSecurityEvents_SecurityEvents_SecurityEventsConnection(global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? nodes)
+        {
+            Nodes = nodes;
+        }
+
+        /// <summary>
+        /// A flattened list of the nodes.
+        /// </summary>
+        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? Nodes { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_SecurityEventsConnection? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Internal.ComparisonHelper.SequenceEqual(Nodes, other.Nodes));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_SecurityEventsConnection)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (Nodes != null)
+                {
+                    foreach (var Nodes_elm in Nodes)
+                    {
+                        hash ^= 397 * Nodes_elm.GetHashCode();
+                    }
+                }
+
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>, IGetSecurityEvents_SecurityEvents_Nodes_SecurityEvents
+    {
+        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents(global::System.Guid id, global::System.String eventType, global::System.DateTimeOffset occurredUtc, global::System.String? details, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser authorUser, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser affectedUser)
+        {
+            Id = id;
+            EventType = eventType;
+            OccurredUtc = occurredUtc;
+            Details = details;
+            AuthorUser = authorUser;
+            AffectedUser = affectedUser;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String EventType { get; }
+        public global::System.DateTimeOffset OccurredUtc { get; }
+        public global::System.String? Details { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser AffectedUser { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && EventType.Equals(other.EventType) && OccurredUtc.Equals(other.OccurredUtc) && ((Details is null && other.Details is null) || Details != null && Details.Equals(other.Details)) && AuthorUser.Equals(other.AuthorUser) && AffectedUser.Equals(other.AffectedUser);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * EventType.GetHashCode();
+                hash ^= 397 * OccurredUtc.GetHashCode();
+                if (Details != null)
+                {
+                    hash ^= 397 * Details.GetHashCode();
+                }
+
+                hash ^= 397 * AuthorUser.GetHashCode();
+                hash ^= 397 * AffectedUser.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>, IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User
+    {
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role role)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role Role { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Email.Equals(other.Email) && Role.Equals(other.Role);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Email.GetHashCode();
+                hash ^= 397 * Role.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>, IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User
+    {
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role role)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role Role { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id.Equals(other.Id)) && Email.Equals(other.Email) && Role.Equals(other.Role);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                hash ^= 397 * Email.GetHashCode();
+                hash ^= 397 * Role.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles
+    {
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles(global::System.String name)
+        {
+            Name = name;
+        }
+
+        public global::System.String Name { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Name.Equals(other.Name));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Name.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles
+    {
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles(global::System.String name)
+        {
+            Name = name;
+        }
+
+        public global::System.String Name { get; }
+
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Name.Equals(other.Name));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Name.GetHashCode();
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEventsResult
+    {
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents? SecurityEvents { get; }
+    }
+
+    /// <summary>
+    /// A connection to a list of items.
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents
+    {
+        /// <summary>
+        /// A flattened list of the nodes.
+        /// </summary>
+        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? Nodes { get; }
+    }
+
+    /// <summary>
+    /// A connection to a list of items.
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_SecurityEventsConnection : IGetSecurityEvents_SecurityEvents
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String EventType { get; }
+        public global::System.DateTimeOffset OccurredUtc { get; }
+        public global::System.String? Details { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser AffectedUser { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_SecurityEvents : IGetSecurityEvents_SecurityEvents_Nodes
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role Role { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User : IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role Role { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User : IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role
+    {
+        public global::System.String Name { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles : IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role
+    {
+        public global::System.String Name { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles : IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role
+    {
+    }
+
     /// <summary>
     /// Represents the operation service of the GetRoles GraphQL operation
     /// <code>
@@ -859,10 +1754,40 @@ namespace ServerApp
     /// mutation AssignRole($userId: UUID!, $roleId: UUID!, $authorUserId: UUID!) {
     ///   assignUserRole(userId: $userId, roleId: $roleId, authorUserId: $authorUserId) {
     ///     __typename
-    ///     userId
-    ///     roleId
     ///     fromRole
     ///     toRole
+    ///     authorUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
     ///   }
     /// }
     /// </code>
@@ -1045,20 +1970,6 @@ namespace ServerApp
             0x6d,
             0x65,
             0x20,
-            0x75,
-            0x73,
-            0x65,
-            0x72,
-            0x49,
-            0x64,
-            0x20,
-            0x72,
-            0x6f,
-            0x6c,
-            0x65,
-            0x49,
-            0x64,
-            0x20,
             0x66,
             0x72,
             0x6f,
@@ -1075,11 +1986,217 @@ namespace ServerApp
             0x6c,
             0x65,
             0x20,
+            0x61,
+            0x75,
+            0x74,
+            0x68,
+            0x6f,
+            0x72,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x65,
+            0x6d,
+            0x61,
+            0x69,
+            0x6c,
+            0x20,
+            0x72,
+            0x6f,
+            0x6c,
+            0x65,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x52,
+            0x6f,
+            0x6c,
+            0x65,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x61,
+            0x66,
+            0x66,
+            0x65,
+            0x63,
+            0x74,
+            0x65,
+            0x64,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x65,
+            0x6d,
+            0x61,
+            0x69,
+            0x6c,
+            0x20,
+            0x72,
+            0x6f,
+            0x6c,
+            0x65,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x52,
+            0x6f,
+            0x6c,
+            0x65,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
             0x7d,
             0x20,
             0x7d
         };
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "cbb7d0ffada5b7fc529cd131c35324bb");
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "bad1ad5257966d541fa08efa4f537229");
 
         public override global::System.String ToString()
         {
@@ -1097,10 +2214,40 @@ namespace ServerApp
     /// mutation AssignRole($userId: UUID!, $roleId: UUID!, $authorUserId: UUID!) {
     ///   assignUserRole(userId: $userId, roleId: $roleId, authorUserId: $authorUserId) {
     ///     __typename
-    ///     userId
-    ///     roleId
     ///     fromRole
     ///     toRole
+    ///     authorUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
     ///   }
     /// }
     /// </code>
@@ -1199,10 +2346,40 @@ namespace ServerApp
     /// mutation AssignRole($userId: UUID!, $roleId: UUID!, $authorUserId: UUID!) {
     ///   assignUserRole(userId: $userId, roleId: $roleId, authorUserId: $authorUserId) {
     ///     __typename
-    ///     userId
-    ///     roleId
     ///     fromRole
     ///     toRole
+    ///     authorUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on Roles {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on User {
+    ///         id
+    ///       }
+    ///     }
     ///   }
     /// }
     /// </code>
@@ -1516,6 +2693,596 @@ namespace ServerApp
     }
 
     /// <summary>
+    /// Represents the operation service of the GetSecurityEvents GraphQL operation
+    /// <code>
+    /// query GetSecurityEvents {
+    ///   securityEvents {
+    ///     __typename
+    ///     nodes {
+    ///       __typename
+    ///       id
+    ///       eventType
+    ///       occurredUtc
+    ///       details
+    ///       authorUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       affectedUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on SecurityEvents {
+    ///         id
+    ///       }
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsQueryDocument : global::StrawberryShake.IDocument
+    {
+        private GetSecurityEventsQueryDocument()
+        {
+        }
+
+        public static GetSecurityEventsQueryDocument Instance { get; } = new GetSecurityEventsQueryDocument();
+        public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]
+        {
+            0x71,
+            0x75,
+            0x65,
+            0x72,
+            0x79,
+            0x20,
+            0x47,
+            0x65,
+            0x74,
+            0x53,
+            0x65,
+            0x63,
+            0x75,
+            0x72,
+            0x69,
+            0x74,
+            0x79,
+            0x45,
+            0x76,
+            0x65,
+            0x6e,
+            0x74,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x73,
+            0x65,
+            0x63,
+            0x75,
+            0x72,
+            0x69,
+            0x74,
+            0x79,
+            0x45,
+            0x76,
+            0x65,
+            0x6e,
+            0x74,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x6e,
+            0x6f,
+            0x64,
+            0x65,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x65,
+            0x76,
+            0x65,
+            0x6e,
+            0x74,
+            0x54,
+            0x79,
+            0x70,
+            0x65,
+            0x20,
+            0x6f,
+            0x63,
+            0x63,
+            0x75,
+            0x72,
+            0x72,
+            0x65,
+            0x64,
+            0x55,
+            0x74,
+            0x63,
+            0x20,
+            0x64,
+            0x65,
+            0x74,
+            0x61,
+            0x69,
+            0x6c,
+            0x73,
+            0x20,
+            0x61,
+            0x75,
+            0x74,
+            0x68,
+            0x6f,
+            0x72,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x65,
+            0x6d,
+            0x61,
+            0x69,
+            0x6c,
+            0x20,
+            0x72,
+            0x6f,
+            0x6c,
+            0x65,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x52,
+            0x6f,
+            0x6c,
+            0x65,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x61,
+            0x66,
+            0x66,
+            0x65,
+            0x63,
+            0x74,
+            0x65,
+            0x64,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x65,
+            0x6d,
+            0x61,
+            0x69,
+            0x6c,
+            0x20,
+            0x72,
+            0x6f,
+            0x6c,
+            0x65,
+            0x20,
+            0x7b,
+            0x20,
+            0x5f,
+            0x5f,
+            0x74,
+            0x79,
+            0x70,
+            0x65,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x6e,
+            0x61,
+            0x6d,
+            0x65,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x52,
+            0x6f,
+            0x6c,
+            0x65,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x55,
+            0x73,
+            0x65,
+            0x72,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x2e,
+            0x2e,
+            0x2e,
+            0x20,
+            0x6f,
+            0x6e,
+            0x20,
+            0x53,
+            0x65,
+            0x63,
+            0x75,
+            0x72,
+            0x69,
+            0x74,
+            0x79,
+            0x45,
+            0x76,
+            0x65,
+            0x6e,
+            0x74,
+            0x73,
+            0x20,
+            0x7b,
+            0x20,
+            0x69,
+            0x64,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d,
+            0x20,
+            0x7d
+        };
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "fb420c93f0e3d39a3774321ebda4b5c6");
+
+        public override global::System.String ToString()
+        {
+#if NETCOREAPP3_1_OR_GREATER
+        return global::System.Text.Encoding.UTF8.GetString(Body);
+#else
+            return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+#endif
+        }
+    }
+
+    /// <summary>
+    /// Represents the operation service of the GetSecurityEvents GraphQL operation
+    /// <code>
+    /// query GetSecurityEvents {
+    ///   securityEvents {
+    ///     __typename
+    ///     nodes {
+    ///       __typename
+    ///       id
+    ///       eventType
+    ///       occurredUtc
+    ///       details
+    ///       authorUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       affectedUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on SecurityEvents {
+    ///         id
+    ///       }
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsQuery : global::ServerApp.IGetSecurityEventsQuery
+    {
+        private readonly global::StrawberryShake.IOperationExecutor<IGetSecurityEventsResult> _operationExecutor;
+        private readonly global::System.Collections.Immutable.ImmutableArray<global::System.Action<global::StrawberryShake.OperationRequest>> _configure = global::System.Collections.Immutable.ImmutableArray<global::System.Action<global::StrawberryShake.OperationRequest>>.Empty;
+        public GetSecurityEventsQuery(global::StrawberryShake.IOperationExecutor<IGetSecurityEventsResult> operationExecutor)
+        {
+            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+        }
+
+        private GetSecurityEventsQuery(global::StrawberryShake.IOperationExecutor<IGetSecurityEventsResult> operationExecutor, global::System.Collections.Immutable.ImmutableArray<global::System.Action<global::StrawberryShake.OperationRequest>> configure)
+        {
+            _operationExecutor = operationExecutor;
+            _configure = configure;
+        }
+
+        global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IGetSecurityEventsResult);
+
+        public global::ServerApp.IGetSecurityEventsQuery With(global::System.Action<global::StrawberryShake.OperationRequest> configure)
+        {
+            return new global::ServerApp.GetSecurityEventsQuery(_operationExecutor, _configure.Add(configure));
+        }
+
+        public global::ServerApp.IGetSecurityEventsQuery WithRequestUri(global::System.Uri requestUri)
+        {
+            return With(r => r.ContextData["StrawberryShake.Transport.Http.HttpConnection.RequestUri"] = requestUri);
+        }
+
+        public global::ServerApp.IGetSecurityEventsQuery WithHttpClient(global::System.Net.Http.HttpClient httpClient)
+        {
+            return With(r => r.ContextData["StrawberryShake.Transport.Http.HttpConnection.HttpClient"] = httpClient);
+        }
+
+        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSecurityEventsResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var request = CreateRequest();
+            foreach (var configure in _configure)
+            {
+                configure(request);
+            }
+
+            return await _operationExecutor.ExecuteAsync(request, cancellationToken).ConfigureAwait(false);
+        }
+
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSecurityEventsResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null)
+        {
+            var request = CreateRequest();
+            return _operationExecutor.Watch(request, strategy);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest()
+        {
+            return CreateRequest(null);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+            return new global::StrawberryShake.OperationRequest(id: GetSecurityEventsQueryDocument.Instance.Hash.Value, name: "GetSecurityEvents", document: GetSecurityEventsQueryDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default);
+        }
+
+        global::StrawberryShake.OperationRequest global::StrawberryShake.IOperationRequestFactory.Create(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+            return CreateRequest();
+        }
+    }
+
+    /// <summary>
+    /// Represents the operation service of the GetSecurityEvents GraphQL operation
+    /// <code>
+    /// query GetSecurityEvents {
+    ///   securityEvents {
+    ///     __typename
+    ///     nodes {
+    ///       __typename
+    ///       id
+    ///       eventType
+    ///       occurredUtc
+    ///       details
+    ///       authorUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       affectedUser {
+    ///         __typename
+    ///         id
+    ///         email
+    ///         role {
+    ///           __typename
+    ///           name
+    ///           ... on Roles {
+    ///             id
+    ///           }
+    ///         }
+    ///         ... on User {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... on SecurityEvents {
+    ///         id
+    ///       }
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEventsQuery : global::StrawberryShake.IOperationRequestFactory
+    {
+        global::ServerApp.IGetSecurityEventsQuery With(global::System.Action<global::StrawberryShake.OperationRequest> configure);
+        global::ServerApp.IGetSecurityEventsQuery WithRequestUri(global::System.Uri requestUri);
+        global::ServerApp.IGetSecurityEventsQuery WithHttpClient(global::System.Net.Http.HttpClient httpClient);
+        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSecurityEventsResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default);
+        global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSecurityEventsResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null);
+    }
+
+    /// <summary>
     /// Represents the ServerClient GraphQL client
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
@@ -1524,17 +3291,20 @@ namespace ServerApp
         private readonly global::ServerApp.IGetRolesQuery _getRoles;
         private readonly global::ServerApp.IAssignRoleMutation _assignRole;
         private readonly global::ServerApp.IGetUsersQuery _getUsers;
-        public ServerClient(global::ServerApp.IGetRolesQuery getRoles, global::ServerApp.IAssignRoleMutation assignRole, global::ServerApp.IGetUsersQuery getUsers)
+        private readonly global::ServerApp.IGetSecurityEventsQuery _getSecurityEvents;
+        public ServerClient(global::ServerApp.IGetRolesQuery getRoles, global::ServerApp.IAssignRoleMutation assignRole, global::ServerApp.IGetUsersQuery getUsers, global::ServerApp.IGetSecurityEventsQuery getSecurityEvents)
         {
             _getRoles = getRoles ?? throw new global::System.ArgumentNullException(nameof(getRoles));
             _assignRole = assignRole ?? throw new global::System.ArgumentNullException(nameof(assignRole));
             _getUsers = getUsers ?? throw new global::System.ArgumentNullException(nameof(getUsers));
+            _getSecurityEvents = getSecurityEvents ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents));
         }
 
         public static global::System.String ClientName => "ServerClient";
         public global::ServerApp.IGetRolesQuery GetRoles => _getRoles;
         public global::ServerApp.IAssignRoleMutation AssignRole => _assignRole;
         public global::ServerApp.IGetUsersQuery GetUsers => _getUsers;
+        public global::ServerApp.IGetSecurityEventsQuery GetSecurityEvents => _getSecurityEvents;
     }
 
     /// <summary>
@@ -1548,6 +3318,8 @@ namespace ServerApp
         global::ServerApp.IAssignRoleMutation AssignRole { get; }
 
         global::ServerApp.IGetUsersQuery GetUsers { get; }
+
+        global::ServerApp.IGetSecurityEventsQuery GetSecurityEvents { get; }
     }
 }
 
@@ -1569,18 +3341,39 @@ namespace ServerApp.State
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial class UserEntity
     {
-        public UserEntity(global::System.Guid id = default !, global::System.String email = default !, global::System.String externalId = default !, global::StrawberryShake.EntityId role = default !)
+        public UserEntity(global::System.Guid id = default !, global::System.String email = default !, global::StrawberryShake.EntityId role = default !, global::System.String externalId = default !)
         {
             Id = id;
             Email = email;
-            ExternalId = externalId;
             Role = role;
+            ExternalId = externalId;
         }
 
         public global::System.Guid Id { get; }
         public global::System.String Email { get; }
-        public global::System.String ExternalId { get; }
         public global::StrawberryShake.EntityId Role { get; }
+        public global::System.String ExternalId { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class SecurityEventsEntity
+    {
+        public SecurityEventsEntity(global::System.Guid id = default !, global::System.String eventType = default !, global::System.DateTimeOffset occurredUtc = default !, global::System.String? details = default !, global::StrawberryShake.EntityId authorUser = default !, global::StrawberryShake.EntityId affectedUser = default !)
+        {
+            Id = id;
+            EventType = eventType;
+            OccurredUtc = occurredUtc;
+            Details = details;
+            AuthorUser = authorUser;
+            AffectedUser = affectedUser;
+        }
+
+        public global::System.Guid Id { get; }
+        public global::System.String EventType { get; }
+        public global::System.DateTimeOffset OccurredUtc { get; }
+        public global::System.String? Details { get; }
+        public global::StrawberryShake.EntityId AuthorUser { get; }
+        public global::StrawberryShake.EntityId AffectedUser { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
@@ -1669,9 +3462,17 @@ namespace ServerApp.State
     public partial class AssignRoleResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.AssignRoleResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        public AssignRoleResultFactory(global::StrawberryShake.IEntityStore entityStore)
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AuthorUser_User> _assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AuthorUser_Role_Roles> _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AffectedUser_User> _assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AffectedUser_Role_Roles> _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public AssignRoleResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AuthorUser_User> assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AuthorUser_Role_Roles> assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AffectedUser_User> assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AffectedUser_Role_Roles> assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper = assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper));
+            _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper = assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper));
+            _assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper = assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper));
+            _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper = assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper));
         }
 
         global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::ServerApp.IAssignRoleResult);
@@ -1696,7 +3497,7 @@ namespace ServerApp.State
             IAssignRole_AssignUserRole returnValue = default !;
             if (data.__typename.Equals("AssignRoleResult", global::System.StringComparison.Ordinal))
             {
-                returnValue = new AssignRole_AssignUserRole_AssignRoleResult(data.UserId ?? throw new global::System.ArgumentNullException(), data.RoleId ?? throw new global::System.ArgumentNullException(), data.FromRole ?? throw new global::System.ArgumentNullException(), data.ToRole ?? throw new global::System.ArgumentNullException());
+                returnValue = new AssignRole_AssignUserRole_AssignRoleResult(data.FromRole ?? throw new global::System.ArgumentNullException(), data.ToRole ?? throw new global::System.ArgumentNullException(), MapNonNullableIAssignRole_AssignUserRole_AuthorUser(data.AuthorUser ?? throw new global::System.ArgumentNullException(), snapshot), MapNonNullableIAssignRole_AssignUserRole_AffectedUser(data.AffectedUser ?? throw new global::System.ArgumentNullException(), snapshot));
             }
             else
             {
@@ -1704,6 +3505,46 @@ namespace ServerApp.State
             }
 
             return returnValue;
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AuthorUser MapNonNullableIAssignRole_AssignUserRole_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AuthorUser_Role MapNonNullableIAssignRole_AssignUserRole_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AffectedUser MapNonNullableIAssignRole_AssignUserRole_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AffectedUser_Role MapNonNullableIAssignRole_AssignUserRole_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
         }
 
         global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
@@ -1813,6 +3654,156 @@ namespace ServerApp.State
         public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
         {
             return new GetUsersResultInfo(Users, _entityIds, version);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.GetSecurityEventsResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents> _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEventsResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents> getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper = getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::ServerApp.IGetSecurityEventsResult);
+
+        public GetSecurityEventsResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            if (dataInfo is GetSecurityEventsResultInfo info)
+            {
+                return new GetSecurityEventsResult(MapIGetSecurityEvents_SecurityEvents(info.SecurityEvents, snapshot));
+            }
+
+            throw new global::System.ArgumentException("GetSecurityEventsResultInfo expected.");
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents? MapIGetSecurityEvents_SecurityEvents(global::ServerApp.State.SecurityEventsConnectionData? data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (data is null)
+            {
+                return null;
+            }
+
+            IGetSecurityEvents_SecurityEvents returnValue = default !;
+            if (data?.__typename.Equals("SecurityEventsConnection", global::System.StringComparison.Ordinal) ?? false)
+            {
+                returnValue = new GetSecurityEvents_SecurityEvents_SecurityEventsConnection(MapIGetSecurityEvents_SecurityEvents_NodesNonNullableArray(data.Nodes, snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+
+            return returnValue;
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? MapIGetSecurityEvents_SecurityEvents_NodesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var securityEventss = new global::System.Collections.Generic.List<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>();
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                securityEventss.Add(MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes(child, snapshot));
+            }
+
+            return securityEventss;
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("SecurityEvents", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.SecurityEventsEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
+        {
+            return Create(dataInfo, snapshot);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsResultInfo : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+        public GetSecurityEventsResultInfo(global::ServerApp.State.SecurityEventsConnectionData? securityEvents, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        {
+            SecurityEvents = securityEvents;
+            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::ServerApp.State.SecurityEventsConnectionData? SecurityEvents { get; }
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+        public global::System.UInt64 Version => _version;
+
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new GetSecurityEventsResultInfo(SecurityEvents, _entityIds, version);
         }
     }
 
@@ -1952,14 +3943,16 @@ namespace ServerApp.State
         {
             var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
             global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::ServerApp.State.AssignRoleResultData assignUserRoleId = default !;
             _entityStore.Update(session =>
             {
+                assignUserRoleId = Deserialize_NonNullableIAssignRole_AssignUserRole(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "assignUserRole"), entityIds);
                 snapshot = session.CurrentSnapshot;
             });
-            return new AssignRoleResultInfo(Deserialize_NonNullableIAssignRole_AssignUserRole(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "assignUserRole")), entityIds, snapshot.Version);
+            return new AssignRoleResultInfo(assignUserRoleId, entityIds, snapshot.Version);
         }
 
-        private global::ServerApp.State.AssignRoleResultData Deserialize_NonNullableIAssignRole_AssignUserRole(global::System.Text.Json.JsonElement? obj)
+        private global::ServerApp.State.AssignRoleResultData Deserialize_NonNullableIAssignRole_AssignUserRole(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -1974,7 +3967,53 @@ namespace ServerApp.State
             var typename = obj.Value.GetProperty("__typename").GetString();
             if (typename?.Equals("AssignRoleResult", global::System.StringComparison.Ordinal) ?? false)
             {
-                return new global::ServerApp.State.AssignRoleResultData(typename, userId: Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userId")), roleId: Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "roleId")), fromRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "fromRole")), toRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "toRole")));
+                return new global::ServerApp.State.AssignRoleResultData(typename, fromRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "fromRole")), toRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "toRole")), authorUser: Update_NonNullableIAssignRole_AssignUserRole_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), affectedUser: Update_NonNullableIAssignRole_AssignUserRole_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.String Deserialize_NonNullableString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIAssignRole_AssignUserRole_AuthorUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIAssignRole_AssignUserRole_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIAssignRole_AssignUserRole_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                }
+
+                return entityId;
             }
 
             throw new global::System.NotSupportedException();
@@ -1995,7 +4034,7 @@ namespace ServerApp.State
             return _uUIDParser.Parse(obj.Value.GetString()!);
         }
 
-        private global::System.String Deserialize_NonNullableString(global::System.Text.Json.JsonElement? obj)
+        private global::StrawberryShake.EntityId Update_NonNullableIAssignRole_AssignUserRole_AuthorUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -2007,7 +4046,85 @@ namespace ServerApp.State
                 throw new global::System.ArgumentNullException();
             }
 
-            return _stringParser.Parse(obj.Value.GetString()!);
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.RolesEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIAssignRole_AssignUserRole_AffectedUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIAssignRole_AssignUserRole_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIAssignRole_AssignUserRole_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIAssignRole_AssignUserRole_AffectedUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.RolesEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
         }
     }
 
@@ -2081,11 +4198,11 @@ namespace ServerApp.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "externalId")), Update_NonNullableIGetUsers_Users_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds)));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetUsers_Users_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "externalId"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "externalId")), Update_NonNullableIGetUsers_Users_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds)));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetUsers_Users_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "externalId"))));
                 }
 
                 return entityId;
@@ -2157,22 +4274,328 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEventsBuilder : global::StrawberryShake.OperationResultBuilder<global::ServerApp.IGetSecurityEventsResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.Guid> _uUIDParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.DateTimeOffset> _dateTimeParser;
+        public GetSecurityEventsBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.IGetSecurityEventsResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            ResultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _uUIDParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.Guid>("UUID") ?? throw new global::System.ArgumentException("No serializer for type `UUID` found.");
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _dateTimeParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.DateTimeOffset>("DateTime") ?? throw new global::System.ArgumentException("No serializer for type `DateTime` found.");
+        }
+
+        protected override global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.IGetSecurityEventsResult> ResultDataFactory { get; }
+
+        protected override global::StrawberryShake.IOperationResultDataInfo BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::ServerApp.State.SecurityEventsConnectionData? securityEventsId = default !;
+            _entityStore.Update(session =>
+            {
+                securityEventsId = Deserialize_IGetSecurityEvents_SecurityEvents(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "securityEvents"), entityIds);
+                snapshot = session.CurrentSnapshot;
+            });
+            return new GetSecurityEventsResultInfo(securityEventsId, entityIds, snapshot.Version);
+        }
+
+        private global::ServerApp.State.SecurityEventsConnectionData? Deserialize_IGetSecurityEvents_SecurityEvents(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            var typename = obj.Value.GetProperty("__typename").GetString();
+            if (typename?.Equals("SecurityEventsConnection", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::ServerApp.State.SecurityEventsConnectionData(typename, nodes: Update_IGetSecurityEvents_SecurityEvents_NodesEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "nodes"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? Update_IGetSecurityEvents_SecurityEvents_NodesEntityNonNullableArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            var securityEventss = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                securityEventss.Add(Update_NonNullableIGetSecurityEvents_SecurityEvents_NodesEntity(session, child, entityIds));
+            }
+
+            return securityEventss;
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_NodesEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("SecurityEvents", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.SecurityEventsEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Guid Deserialize_NonNullableGuid(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _uUIDParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.String Deserialize_NonNullableString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.DateTimeOffset Deserialize_NonNullableDateTimeOffset(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _dateTimeParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.String? Deserialize_String(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.RolesEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(entity.Id, Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(default !, Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.RolesEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(entity.Id, Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::ServerApp.State.RolesEntity(default !, Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial class AssignRoleResultData
     {
-        public AssignRoleResultData(global::System.String __typename, global::System.Guid? userId = default !, global::System.Guid? roleId = default !, global::System.String? fromRole = default !, global::System.String? toRole = default !)
+        public AssignRoleResultData(global::System.String __typename, global::System.String? fromRole = default !, global::System.String? toRole = default !, global::StrawberryShake.EntityId? authorUser = default !, global::StrawberryShake.EntityId? affectedUser = default !)
         {
             this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
-            UserId = userId;
-            RoleId = roleId;
             FromRole = fromRole;
             ToRole = toRole;
+            AuthorUser = authorUser;
+            AffectedUser = affectedUser;
         }
 
         public global::System.String __typename { get; }
-        public global::System.Guid? UserId { get; }
-        public global::System.Guid? RoleId { get; }
         public global::System.String? FromRole { get; }
         public global::System.String? ToRole { get; }
+        public global::StrawberryShake.EntityId? AuthorUser { get; }
+        public global::StrawberryShake.EntityId? AffectedUser { get; }
+    }
+
+    ///<summary>A connection to a list of items.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class SecurityEventsConnectionData
+    {
+        public SecurityEventsConnectionData(global::System.String __typename, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? nodes = default !)
+        {
+            this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
+            Nodes = nodes;
+        }
+
+        public global::System.String __typename { get; }
+        ///<summary>A flattened list of the nodes.</summary>
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? Nodes { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
@@ -2192,6 +4615,110 @@ namespace ServerApp.State
             }
 
             return new GetRoles_Roles_Roles(entity.Id, entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AuthorUser_User>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AuthorUser_Role_Roles> _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper;
+        public AssignRole_AssignUserRole_AuthorUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AuthorUser_Role_Roles> assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper = assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        public AssignRole_AssignUserRole_AuthorUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new AssignRole_AssignUserRole_AuthorUser_User(entity.Id, entity.Email, MapNonNullableIAssignRole_AssignUserRole_AuthorUser_Role(entity.Role, snapshot));
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AuthorUser_Role MapNonNullableIAssignRole_AssignUserRole_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, AssignRole_AssignUserRole_AffectedUser_User>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AffectedUser_Role_Roles> _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public AssignRole_AssignUserRole_AffectedUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AffectedUser_Role_Roles> assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper = assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        public AssignRole_AssignUserRole_AffectedUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new AssignRole_AssignUserRole_AffectedUser_User(entity.Id, entity.Email, MapNonNullableIAssignRole_AssignUserRole_AffectedUser_Role(entity.Role, snapshot));
+        }
+
+        private global::ServerApp.IAssignRole_AssignUserRole_AffectedUser_Role MapNonNullableIAssignRole_AssignUserRole_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _assignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AuthorUser_Role_Roles>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public AssignRole_AssignUserRole_AuthorUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public AssignRole_AssignUserRole_AuthorUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new AssignRole_AssignUserRole_AuthorUser_Role_Roles(entity.Id, entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class AssignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, AssignRole_AssignUserRole_AffectedUser_Role_Roles>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public AssignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public AssignRole_AssignUserRole_AffectedUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new AssignRole_AssignUserRole_AffectedUser_Role_Roles(entity.Id, entity.Name);
         }
     }
 
@@ -2248,6 +4775,178 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents Map(global::ServerApp.State.SecurityEventsEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents(entity.Id, entity.EventType, entity.OccurredUtc, entity.Details, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(entity.AuthorUser, snapshot), MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(entity.AffectedUser, snapshot));
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(entity.Role, snapshot));
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+        }
+
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(entity.Role, snapshot));
+        }
+
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
+            {
+                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles(entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles(entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial class ServerClientEntityIdFactory : global::StrawberryShake.IEntityIdSerializer
     {
         private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions()
@@ -2261,6 +4960,7 @@ namespace ServerApp.State
             {
                 "Roles" => ParseRolesEntityId(obj, __typename),
                 "User" => ParseUserEntityId(obj, __typename),
+                "SecurityEvents" => ParseSecurityEventsEntityId(obj, __typename),
                 _ => throw new global::System.NotSupportedException()};
         }
 
@@ -2270,6 +4970,7 @@ namespace ServerApp.State
             {
                 "Roles" => FormatRolesEntityId(entityId),
                 "User" => FormatUserEntityId(entityId),
+                "SecurityEvents" => FormatSecurityEventsEntityId(entityId),
                 _ => throw new global::System.NotSupportedException()};
         }
 
@@ -2296,6 +4997,23 @@ namespace ServerApp.State
         }
 
         private global::System.String FormatUserEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(writer, _options);
+            jsonWriter.WriteStartObject();
+            jsonWriter.WriteString("__typename", entityId.Name);
+            jsonWriter.WriteString("id", (global::System.String)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+            return global::System.Text.Encoding.UTF8.GetString(writer.GetInternalBuffer(), 0, writer.Length);
+        }
+
+        private global::StrawberryShake.EntityId ParseSecurityEventsEntityId(global::System.Text.Json.JsonElement obj, global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(type, obj.GetProperty("id").GetString()!);
+        }
+
+        private global::System.String FormatSecurityEventsEntityId(global::StrawberryShake.EntityId entityId)
         {
             using var writer = new global::StrawberryShake.Internal.ArrayWriter();
             using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(writer, _options);
