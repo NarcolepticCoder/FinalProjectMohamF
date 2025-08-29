@@ -3,7 +3,7 @@ using GraphQL.Repositories;
 
 namespace GraphQL.Services
 {
-    public class AuditService
+    public class AuditService : IAuditService
 {
     private readonly IAuditRepository _repo;
 

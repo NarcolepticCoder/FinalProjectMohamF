@@ -6070,11 +6070,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/GraphQL/GraphQL.csproj",
+      "projectUniqueName": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/GraphQL.csproj",
       "projectName": "GraphQL",
-      "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/GraphQL/GraphQL.csproj",
+      "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/GraphQL.csproj",
       "packagesPath": "/Users/yorkmacbook017/.nuget/packages/",
-      "outputPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/GraphQL/obj/",
+      "outputPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/yorkmacbook017/.nuget/NuGet/NuGet.Config"
@@ -6089,8 +6089,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj": {
-              "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj"
+            "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj": {
+              "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj"
             }
           }
         }

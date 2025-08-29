@@ -38,7 +38,6 @@ namespace ServerApp.Controllers
                 );
             }
 
-
             // Default: Okta or other OIDC provider
             // This triggers OnRedirectToIdentityProviderForSignOut, where your existing audit runs
             return SignOut(

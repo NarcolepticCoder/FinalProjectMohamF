@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj": {}
+    "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj": {}
   },
   "projects": {
-    "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj": {
+    "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj",
+        "projectUniqueName": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj",
         "projectName": "Data",
-        "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj",
+        "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj",
         "packagesPath": "/Users/yorkmacbook017/.nuget/packages/",
-        "outputPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/",
+        "outputPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/yorkmacbook017/.nuget/NuGet/NuGet.Config"
@@ -91,14 +91,14 @@
         }
       }
     },
-    "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj": {
+    "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj",
+        "projectUniqueName": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj",
         "projectName": "ServerApp",
-        "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj",
+        "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj",
         "packagesPath": "/Users/yorkmacbook017/.nuget/packages/",
-        "outputPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/obj/",
+        "outputPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/yorkmacbook017/.nuget/NuGet/NuGet.Config"
@@ -113,8 +113,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj": {
-                "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj"
+              "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj": {
+                "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj"
               }
             }
           }

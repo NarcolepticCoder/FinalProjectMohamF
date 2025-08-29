@@ -78,51 +78,27 @@
         canViewAuthEvents = user.HasClaim("permissions", "Audit.ViewAuthEvents");
         canViewRoleChanges = user.HasClaim("permissions", "Audit.RoleChanges");
         
-        try
+  
+        var result = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
+
+        var events = result.Data?.SecurityEvents?.Nodes?.ToList() ?? new();
+        
+        if (canViewAuthEvents)
         {
-            var result = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
-
-            var events = result.Data?.SecurityEvents?.Nodes?.ToList() ?? new();
-
-            
-
-if (result.Errors?.Count > 0)
-{
-    Console.WriteLine("GraphQL Errors:");
-    foreach (var err in result.Errors)
-    {
-        Console.WriteLine(err.Message);
-    }
-}
-
-if (result.Data == null)
-{
-    Console.WriteLine("Result.Data is null");
-}
-else
-{
-    Console.WriteLine($"Nodes: {result.Data.SecurityEvents?.Nodes?.Count()}");
-}
-
-            if (canViewAuthEvents)
-            {
-                authEvents = events
-                    .Where(e => e.EventType == "LoginSuccess" || e.EventType == "LogoutSuccess")
-                    .OrderByDescending(e => e.OccurredUtc)
-                    .ToList();
-            }
-
-            if (canViewRoleChanges)
-            {
-                roleEvents = events
-                    .Where(e => e.EventType == "RoleAssigned")
-                    .OrderByDescending(e => e.OccurredUtc)
-                    .ToList();
-            }
+            authEvents = events
+                .Where(e => e.EventType == "LoginSuccess" || e.EventType == "LogoutSuccess")
+                .OrderByDescending(e => e.OccurredUtc)
+                .ToList();
         }
-        catch (Exception ex)
+
+        if (canViewRoleChanges)
         {
-            Console.WriteLine($"Error loading security events: {ex.Message}");
+            roleEvents = events
+                .Where(e => e.EventType == "RoleAssigned")
+                .OrderByDescending(e => e.OccurredUtc)
+                .ToList();
         }
+        
+        
     }
 }

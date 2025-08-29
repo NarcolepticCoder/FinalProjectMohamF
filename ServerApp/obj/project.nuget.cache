@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ny1gIwEu3ag=",
+  "dgSpecHash": "E8jEsUcj5N8=",
   "success": true,
-  "projectFilePath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj",
+  "projectFilePath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj",
   "expectedPackageFiles": [
     "/Users/yorkmacbook017/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

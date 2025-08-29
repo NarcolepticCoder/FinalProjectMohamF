@@ -7029,11 +7029,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/tests/UnitTests/UnitTests.csproj",
+      "projectUniqueName": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/UnitTests.csproj",
       "projectName": "UnitTests",
-      "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/tests/UnitTests/UnitTests.csproj",
+      "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/UnitTests.csproj",
       "packagesPath": "/Users/yorkmacbook017/.nuget/packages/",
-      "outputPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/tests/UnitTests/obj/",
+      "outputPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/yorkmacbook017/.nuget/NuGet/NuGet.Config"
@@ -7048,14 +7048,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj": {
-              "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/Data.csproj"
+            "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj": {
+              "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/Data/Data.csproj"
             },
-            "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/GraphQL/GraphQL.csproj": {
-              "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/GraphQL/GraphQL.csproj"
+            "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/GraphQL.csproj": {
+              "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/GraphQL.csproj"
             },
-            "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj": {
-              "projectPath": "/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/ServerApp.csproj"
+            "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj": {
+              "projectPath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/ServerApp.csproj"
             }
           }
         }
