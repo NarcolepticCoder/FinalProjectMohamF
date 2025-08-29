@@ -1,4 +1,6 @@
 
+using System.Security.Claims;
+using Data.DTOs;
 using Data.Entities;
 using GraphQL.Repositories;
 
@@ -59,5 +61,29 @@ namespace GraphQL.Services
                 ToRole = newRole.Name
             };
         }
+
+        public async Task<List<ClaimDto>> GetUserClaimsAsync(string externalId)
+        {
+            if (string.IsNullOrEmpty(externalId))
+                return new List<ClaimDto>();
+
+            // Fetch user including role and role claims
+            var user = await _repo.GetUserWithRoleAndClaimsAsync(externalId);
+            if (user == null || user.Role == null)
+                return new List<ClaimDto>();
+
+            var claims = new List<ClaimDto>
+        {
+            // Always include the role itself
+            new ClaimDto { Type = ClaimTypes.Role, Value = user.Role.Name }
+        };
+
+            // Add all claims associated with that role
+            claims.AddRange(user.Role.RoleClaim.Select(rc =>
+                new ClaimDto { Type = rc.Claim.Type, Value = rc.Claim.Value }));
+
+            return claims;
+        }
+    
     }
 }

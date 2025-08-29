@@ -14,6 +14,10 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllers();
 
 builder.Services
+    .AddServerClient()
+    .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://graphql/graphql"));
+
+builder.Services
   .AddAuthentication(options =>
   {
       options.DefaultScheme = "Cookies";
@@ -41,7 +45,7 @@ builder.Services
               identity.AddClaim(new Claim("idp", ctx.Scheme.Name)); // "Okta" or "Google"
 
               // Call your existing audit handler
-              return AuthEventHandlers.AuditLoginAsync(ctx);
+              return AuthEventHandlers.AttachUserClaimsAsync(ctx);
           },
           OnRedirectToIdentityProviderForSignOut = AuthEventHandlers.AuditLogoutAsync
       };
@@ -66,7 +70,8 @@ builder.Services
               identity.AddClaim(new Claim("idp", ctx.Scheme.Name)); // "Okta" or "Google"
 
               // Call your existing audit handler
-              return AuthEventHandlers.AuditLoginAsync(ctx);
+              return AuthEventHandlers.AttachUserClaimsAsync(ctx);
+              
           },
           
       };

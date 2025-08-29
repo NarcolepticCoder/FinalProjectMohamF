@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Repositories
 {
-     public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _db;
 
@@ -30,5 +30,15 @@ namespace GraphQL.Repositories
             _db.SecurityEvents.Add(securityEvent);
             await _db.SaveChangesAsync();
         }
+
+        public async Task<User?> GetUserWithRoleAndClaimsAsync(string externalId)
+        {
+            return await _db.Users
+                .Include(u => u.Role)
+                    .ThenInclude(r => r.RoleClaim)
+                        .ThenInclude(rc => rc.Claim)
+                .FirstOrDefaultAsync(u => u.ExternalId == externalId);
+        }
+
     }
 }

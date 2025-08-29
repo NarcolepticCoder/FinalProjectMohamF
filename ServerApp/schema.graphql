@@ -1,0 +1,278 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+type Query {
+  users: [User!]!
+  roles: [Roles!]!
+  securityEvents("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: SecurityEventsFilterInput order: [SecurityEventsSortInput!]): SecurityEventsConnection
+  userClaims(externalId: String!): [ClaimDto!]!
+}
+
+type Mutation {
+  assignUserRole(userId: UUID! roleId: UUID! authorUserId: UUID!): AssignRoleResult!
+  auditLogin(input: AuditDtoInput!): String!
+  auditLogout(input: AuditDtoInput!): String!
+}
+
+input SecurityEventsFilterInput {
+  and: [SecurityEventsFilterInput!]
+  or: [SecurityEventsFilterInput!]
+  id: UuidOperationFilterInput
+  eventType: StringOperationFilterInput
+  occurredUtc: DateTimeOperationFilterInput
+  details: StringOperationFilterInput
+  authorUserId: UuidOperationFilterInput
+  authorUser: UserFilterInput
+  affectedUserId: UuidOperationFilterInput
+  affectedUser: UserFilterInput
+}
+
+input SecurityEventsSortInput {
+  id: SortEnumType
+  eventType: SortEnumType
+  occurredUtc: SortEnumType
+  details: SortEnumType
+  authorUserId: SortEnumType
+  authorUser: UserSortInput
+  affectedUserId: SortEnumType
+  affectedUser: UserSortInput
+}
+
+"A connection to a list of items."
+type SecurityEventsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SecurityEventsEdge!]
+  "A flattened list of the nodes."
+  nodes: [SecurityEvents!]
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input UserFilterInput {
+  and: [UserFilterInput!]
+  or: [UserFilterInput!]
+  id: UuidOperationFilterInput
+  externalId: StringOperationFilterInput
+  email: StringOperationFilterInput
+  roleId: UuidOperationFilterInput
+  role: RolesFilterInput
+  authoredEvents: ListFilterInputTypeOfSecurityEventsFilterInput
+  affectedEvents: ListFilterInputTypeOfSecurityEventsFilterInput
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input UserSortInput {
+  id: SortEnumType
+  externalId: SortEnumType
+  email: SortEnumType
+  roleId: SortEnumType
+  role: RolesSortInput
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+"An edge in a connection."
+type SecurityEventsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SecurityEvents!
+}
+
+scalar UUID
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+input RolesFilterInput {
+  and: [RolesFilterInput!]
+  or: [RolesFilterInput!]
+  id: UuidOperationFilterInput
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  users: ListFilterInputTypeOfUserFilterInput
+  roleClaim: ListFilterInputTypeOfRoleClaimsFilterInput
+}
+
+input ListFilterInputTypeOfSecurityEventsFilterInput {
+  all: SecurityEventsFilterInput
+  none: SecurityEventsFilterInput
+  some: SecurityEventsFilterInput
+  any: Boolean
+}
+
+input RolesSortInput {
+  id: SortEnumType
+  name: SortEnumType
+  description: SortEnumType
+}
+
+input ListFilterInputTypeOfUserFilterInput {
+  all: UserFilterInput
+  none: UserFilterInput
+  some: UserFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfRoleClaimsFilterInput {
+  all: RoleClaimsFilterInput
+  none: RoleClaimsFilterInput
+  some: RoleClaimsFilterInput
+  any: Boolean
+}
+
+input RoleClaimsFilterInput {
+  and: [RoleClaimsFilterInput!]
+  or: [RoleClaimsFilterInput!]
+  roleId: UuidOperationFilterInput
+  role: RolesFilterInput
+  claimId: UuidOperationFilterInput
+  claim: ClaimsFilterInput
+}
+
+input ClaimsFilterInput {
+  and: [ClaimsFilterInput!]
+  or: [ClaimsFilterInput!]
+  id: UuidOperationFilterInput
+  type: StringOperationFilterInput
+  value: StringOperationFilterInput
+  roleClaim: ListFilterInputTypeOfRoleClaimsFilterInput
+}
+
+type AssignRoleResult {
+  userId: UUID!
+  roleId: UUID!
+  fromRole: String!
+  toRole: String!
+}
+
+type ClaimDto {
+  type: String!
+  value: String!
+}
+
+type Roles {
+  id: UUID!
+  name: String!
+  description: String
+  users: [User!]!
+  roleClaim: [RoleClaims!]!
+}
+
+type User {
+  id: UUID!
+  externalId: String!
+  email: String!
+  roleId: UUID!
+  role: Roles!
+  authoredEvents: [SecurityEvents!]!
+  affectedEvents: [SecurityEvents!]!
+}
+
+input AuditDtoInput {
+  email: String!
+  externalId: String!
+  provider: String
+}
+
+type SecurityEvents {
+  id: UUID!
+  eventType: String!
+  occurredUtc: DateTime!
+  details: String
+  authorUserId: UUID!
+  authorUser: User!
+  affectedUserId: UUID!
+  affectedUser: User!
+}
+
+type RoleClaims {
+  roleId: UUID!
+  role: Roles!
+  claimId: UUID!
+  claim: Claims!
+}
+
+type Claims {
+  id: UUID!
+  type: String!
+  value: String!
+  roleClaim: [RoleClaims!]!
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"The purpose of the `@listSize` directive is to either inform the static analysis about the size of returned lists (if that information is statically available), or to point the analysis to where to find that information."
+directive @listSize("The `assumedSize` argument can be used to statically define the maximum length of a list returned by a field." assumedSize: Int "The `slicingArguments` argument can be used to define which of the field's arguments with numeric type are slicing arguments, so that their value determines the size of the list returned by that field. It may specify a list of multiple slicing arguments." slicingArguments: [String!] "The `slicingArgumentDefaultValue` argument can be used to define a default value for a slicing argument, which is used if the argument is not present in a query." slicingArgumentDefaultValue: Int "The `sizedFields` argument can be used to define that the value of the `assumedSize` argument or of a slicing argument does not affect the size of a list returned by a field itself, but that of a list returned by one of its sub-fields." sizedFields: [String!] "The `requireOneSlicingArgument` argument can be used to inform the static analysis that it should expect that exactly one of the defined slicing arguments is present in a query. If that is not the case (i.e., if none or multiple slicing arguments are present), the static analysis may throw an error." requireOneSlicingArgument: Boolean! = true) on FIELD_DEFINITION

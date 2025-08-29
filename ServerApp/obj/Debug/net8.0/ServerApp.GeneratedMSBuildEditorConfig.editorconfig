@@ -28,6 +28,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/Pages/RoleAssignment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUm9sZUFzc2lnbm1lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/Pages/RolesDebug.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUm9sZXNEZWJ1Zy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/yorkmacbook017/Desktop/FinalProjectMohamF/ServerApp/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
