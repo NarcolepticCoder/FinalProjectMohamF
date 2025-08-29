@@ -12,8 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services
-    .AddScoped<AuditService>()
-    .AddScoped<UserService>()
+    .AddScoped<IAuditService,AuditService>()
+    .AddScoped<IUserService,UserService>()
     .AddScoped<Mutation>()           // root type instance
     .AddScoped<AuditMutations>()
     .AddScoped<IUserRepository, UserRepository>()

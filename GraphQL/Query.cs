@@ -12,7 +12,6 @@ namespace GraphQL
 
     {
         
-        
         public IQueryable<User> GetUsers([Service] AppDbContext db) =>
             db.Users.Include(u => u.Role);
 
@@ -24,21 +23,17 @@ namespace GraphQL
         [UseSorting]          // optional if you want sort args
         public IQueryable<SecurityEvents> GetSecurityEvents(AppDbContext db)
         {
-
-
             // Ensure newest first
             return db.SecurityEvents
                      .Include(e => e.AuthorUser)
-        .ThenInclude(u => u.Role)
-    .Include(e => e.AffectedUser)
-        .ThenInclude(u => u.Role)
-    .OrderByDescending(e => e.OccurredUtc);
-   
+                     .ThenInclude(u => u.Role)
+                     .Include(e => e.AffectedUser)
+                     .ThenInclude(u => u.Role)
+                     .OrderByDescending(e => e.OccurredUtc);
 
-                 
         }
         
-        public async Task<List<ClaimDto>> GetUserClaims(string externalId, [Service] UserService userService)
+        public async Task<List<ClaimDto>> GetUserClaims(string externalId, [Service] IUserService userService)
         {
             if (string.IsNullOrEmpty(externalId))
                 return new List<ClaimDto>();

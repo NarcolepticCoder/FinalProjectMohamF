@@ -57,71 +57,39 @@ else
 
         authorized = user.HasClaim("permissions", "Audit.RoleChanges");
 
-    
-            var userResult = await GraphQLClient.GetUsers.ExecuteAsync();
-            availableUsers = userResult.Data?.Users;
+        var userResult = await GraphQLClient.GetUsers.ExecuteAsync();
+        availableUsers = userResult.Data?.Users;
         
     }
 
     private async Task AssignRoleAsync()
     {
-        try
-        {
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var currentUser = authState.User;
+        
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var currentUser = authState.User;
 
-            var externalId = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(externalId))
-            {
-                Console.WriteLine("Current user external ID not found in claims.");
-                return;
-            }
+        var externalId = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var authorUser = await GraphQLClient.GetUsers.ExecuteAsync();
-            var authorUserId = authorUser.Data?.Users
-                .FirstOrDefault(u => u.ExternalId == externalId)?.Id;
+        var authorUser = await GraphQLClient.GetUsers.ExecuteAsync();
+        var authorUserId = authorUser.Data?.Users
+            .FirstOrDefault(u => u.ExternalId == externalId)?.Id;
 
-            if (authorUserId == null)
-            {
-                Console.WriteLine("Author user not found in database.");
-                return;
-            }
 
-            var roleQuery = await GraphQLClient.GetRoles.ExecuteAsync();
-            var roleId = roleQuery.Data?.Roles
-                .FirstOrDefault(r => r.Name == roleChange.NewRole)?.Id;
+        var roleQuery = await GraphQLClient.GetRoles.ExecuteAsync();
+        var roleId = roleQuery.Data?.Roles
+            .FirstOrDefault(r => r.Name == roleChange.NewRole)?.Id;
 
-            if (roleId == null)
-            {
-                Console.WriteLine($"Role {roleChange.NewRole} not found.");
-                return;
-            }
 
-            var targetUser = authorUser.Data?.Users
-                .FirstOrDefault(u => u.Email == roleChange.UserEmail);
+        var targetUser = authorUser.Data?.Users
+            .FirstOrDefault(u => u.Email == roleChange.UserEmail);
 
-            if (targetUser == null)
-            {
-                Console.WriteLine($"Target user {roleChange.UserEmail} not found.");
-                return;
-            }
 
-            var result = await GraphQLClient.AssignRole
-                .ExecuteAsync(targetUser.Id, roleId.Value, authorUserId.Value);
-            
-            if (result.Data?.AssignUserRole != null)
-            {
-                Console.WriteLine($"Role assigned: {result.Data.AssignUserRole.FromRole} -> {result.Data.AssignUserRole.ToRole}");
-            }
-            else
-            {
-                Console.WriteLine("Role assignment failed.");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error assigning role: {ex.Message}");
-        }
+        var result = await GraphQLClient.AssignRole
+            .ExecuteAsync(targetUser.Id, roleId.Value, authorUserId.Value);
+        
+        
+    
+    
     }
 
     

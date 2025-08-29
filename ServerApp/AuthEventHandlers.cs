@@ -115,16 +115,9 @@ public static class AuthEventHandlers
         var response = await httpClient.PostAsJsonAsync("/graphql", requestBody);
         
         var content = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            
-            Console.WriteLine("GraphQL error response: " + content);
-            return; // or throw
-        }
-        response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadFromJsonAsync<JsonElement>();
-        Console.WriteLine("Raw GraphQL response: " + json);
+       
 
         var claims = json.GetProperty("data")
                          .GetProperty("userClaims")

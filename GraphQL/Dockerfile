@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the solution and restore first
-COPY ["FinalProjectMohamF.sln", "./"]
+COPY ["tsg-zelis-okta-MohamedFarrag.sln", "./"]
 COPY ["GraphQL/GraphQL.csproj", "GraphQL/"]
 RUN dotnet restore "GraphQL/GraphQL.csproj"
 
