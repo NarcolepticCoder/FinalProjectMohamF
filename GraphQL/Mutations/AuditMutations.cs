@@ -5,23 +5,20 @@ namespace GraphQL.Mutations
     [ExtendObjectType(typeof(Mutation))]
     public class AuditMutations
     {
-        private readonly AuditService _auditService;
+        
 
         // Inject the service through constructor
-        public AuditMutations(AuditService auditService)
-        {
-            _auditService = auditService;
-        }
+        
 
-        public async Task<string> AuditLogin(AuditDto input)
+        public async Task<string> AuditLogin(AuditDto input, [Service] AuditService auditService)
         {
-            await _auditService.AuditLoginAsync(input.Email, input.ExternalId, input.Provider);
+            await auditService.AuditLoginAsync(input.Email, input.ExternalId, input.Provider);
             return "Login audit recorded";
         }
 
-        public async Task<string> AuditLogout(AuditDto input)
+        public async Task<string> AuditLogout(AuditDto input, [Service] AuditService auditService)
         {
-            await _auditService.AuditLogoutAsync(input.Email, input.ExternalId);
+            await auditService.AuditLogoutAsync(input.Email, input.ExternalId);
             return "Logout audit recorded";
         }
     }

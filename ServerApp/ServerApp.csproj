@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.19" />
+    <PackageReference Include="StrawberryShake.Blazor" Version="15.1.9" />
     <ProjectReference Include="..\Data\Data.csproj" />
     
   </ItemGroup>

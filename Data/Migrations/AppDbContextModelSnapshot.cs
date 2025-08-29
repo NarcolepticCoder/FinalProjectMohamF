@@ -43,13 +43,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1fbc51ad-2017-43f1-bca8-cfb12176852e"),
+                            Id = new Guid("75580ddc-c512-4d6c-bcb0-37b7774cc3fd"),
                             Type = "permissions",
                             Value = "Audit.ViewAuthEvents"
                         },
                         new
                         {
-                            Id = new Guid("c038251a-d6cf-45ff-b61e-b1e82d13362a"),
+                            Id = new Guid("124562f9-09d6-4b92-8f90-67b4b301311d"),
                             Type = "permissions",
                             Value = "Audit.RoleChanges"
                         });
@@ -130,18 +130,18 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = new Guid("5512081a-e9fc-4150-b83b-cc29a7dcf63a"),
-                            ClaimId = new Guid("1fbc51ad-2017-43f1-bca8-cfb12176852e")
+                            RoleId = new Guid("7d501146-c6b7-49b9-9304-c885caad56ba"),
+                            ClaimId = new Guid("75580ddc-c512-4d6c-bcb0-37b7774cc3fd")
                         },
                         new
                         {
-                            RoleId = new Guid("2aef3323-8359-448f-9063-da6e7b7af161"),
-                            ClaimId = new Guid("1fbc51ad-2017-43f1-bca8-cfb12176852e")
+                            RoleId = new Guid("9ea85afc-083f-438d-89ba-d3a33bcd40ea"),
+                            ClaimId = new Guid("75580ddc-c512-4d6c-bcb0-37b7774cc3fd")
                         },
                         new
                         {
-                            RoleId = new Guid("2aef3323-8359-448f-9063-da6e7b7af161"),
-                            ClaimId = new Guid("c038251a-d6cf-45ff-b61e-b1e82d13362a")
+                            RoleId = new Guid("9ea85afc-083f-438d-89ba-d3a33bcd40ea"),
+                            ClaimId = new Guid("124562f9-09d6-4b92-8f90-67b4b301311d")
                         });
                 });
 
@@ -165,19 +165,19 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b9d50a31-1d68-4988-8de2-436f0d791579"),
+                            Id = new Guid("e5c83877-ec0e-4ee0-9666-3e355702b55a"),
                             Description = "Default role for new users",
                             Name = "BasicUser"
                         },
                         new
                         {
-                            Id = new Guid("5512081a-e9fc-4150-b83b-cc29a7dcf63a"),
+                            Id = new Guid("7d501146-c6b7-49b9-9304-c885caad56ba"),
                             Description = "Can view authentication events",
                             Name = "AuthObserver"
                         },
                         new
                         {
-                            Id = new Guid("2aef3323-8359-448f-9063-da6e7b7af161"),
+                            Id = new Guid("9ea85afc-083f-438d-89ba-d3a33bcd40ea"),
                             Description = "Can view auth events & role changes",
                             Name = "SecurityAuditor"
                         });

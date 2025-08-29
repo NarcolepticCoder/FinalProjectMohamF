@@ -1,0 +1,41 @@
+@page "/roles/debug"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h3>Current User Claims</h3>
+
+@if (user == null)
+{
+    <p>Not logged in.</p>
+}
+else
+{
+    <p><strong>User:</strong> @user.Identity?.Name</p>
+
+    <h4>Roles</h4>
+    <ul>
+        @foreach (var role in user.Claims.Where(c => c.Type == "role"))
+        {
+            <li>@role.Value</li>
+        }
+    </ul>
+
+    <h4>All Claims</h4>
+    <ul>
+        @foreach (var claim in user.Claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+    </ul>
+}
+
+@code {
+    private ClaimsPrincipal? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        user = authState.User;
+    }
+}

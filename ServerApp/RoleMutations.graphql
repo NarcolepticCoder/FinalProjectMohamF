@@ -1,0 +1,23 @@
+mutation AssignRole($userId: UUID!, $roleId: UUID!, $authorUserId: UUID!) {
+  assignUserRole(userId: $userId, roleId: $roleId, authorUserId: $authorUserId) {
+    fromRole
+    toRole
+    authorUser {
+      id
+      email
+      role {
+        id
+        name
+      }
+    }
+    affectedUser {
+      id
+      email
+      role {
+        id
+        name
+      }
+    
+    }
+  }
+}

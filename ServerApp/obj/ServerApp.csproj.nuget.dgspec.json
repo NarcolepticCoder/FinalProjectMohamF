@@ -138,6 +138,10 @@
             "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
               "target": "Package",
               "version": "[8.0.19, )"
+            },
+            "StrawberryShake.Blazor": {
+              "target": "Package",
+              "version": "[15.1.9, )"
             }
           },
           "imports": [

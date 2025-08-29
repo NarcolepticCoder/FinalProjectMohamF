@@ -22,5 +22,6 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/Users/yorkmacbook017/.nuget/packages/xunit.analyzers/1.16.0</Pkgxunit_analyzers>
+    <PkgStrawberryShake_Blazor Condition=" '$(PkgStrawberryShake_Blazor)' == '' ">/Users/yorkmacbook017/.nuget/packages/strawberryshake.blazor/15.1.9</PkgStrawberryShake_Blazor>
   </PropertyGroup>
 </Project>

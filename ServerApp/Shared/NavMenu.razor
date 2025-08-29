@@ -23,6 +23,7 @@
 <AuthorizeView>
     <Authorized>
         <button class="btn btn-secondary" @onclick="SignOut">Sign out</button>
+        <button class="btn btn-primary" @onclick="RolesAssign">Assign roles</button>
     </Authorized>
     <NotAuthorized>
         <button class="btn btn-primary" @onclick='@(() => SignIn("Okta"))'>Sign in with Okta</button>
@@ -34,7 +35,10 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
+    void RolesAssign()
+    {
+        Navigation.NavigateTo("/roles/assign");
+    }
     void SignIn(string provider)
     {
         Navigation.NavigateTo($"/Account/SignIn?provider={provider}&returnUrl=/", forceLoad: true);

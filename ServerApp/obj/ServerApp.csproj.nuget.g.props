@@ -13,6 +13,10 @@
     <SourceRoot Include="/Users/yorkmacbook017/.nuget/packages/" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)strawberryshake.blazor/15.1.9/build/StrawberryShake.Blazor.props" Condition="Exists('$(NuGetPackageRoot)strawberryshake.blazor/15.1.9/build/StrawberryShake.Blazor.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore/8.0.6/buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore/8.0.6/buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgStrawberryShake_Blazor Condition=" '$(PkgStrawberryShake_Blazor)' == '' ">/Users/yorkmacbook017/.nuget/packages/strawberryshake.blazor/15.1.9</PkgStrawberryShake_Blazor>
+  </PropertyGroup>
 </Project>

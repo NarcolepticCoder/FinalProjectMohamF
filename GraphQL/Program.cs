@@ -38,6 +38,7 @@ builder.Services
     .AddAuthorization()
     .AddProjections()
     .AddFiltering()
+    .DisableIntrospection(false)
     .AddSorting();
 
 var app = builder.Build();

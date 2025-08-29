@@ -1,0 +1,128 @@
+@page "/roles/assign"
+@using Microsoft.AspNetCore.Authorization
+@using StrawberryShake
+@using System.Security.Claims
+@attribute [Authorize(Policy = "CanViewRoleChanges")]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IServerClient GraphQLClient
+
+<PageTitle>Assign User Role</PageTitle>
+
+<h3>Assign Role</h3>
+
+@if (!authorized)
+{
+    <p class="text-danger">You do not have permission to view this page.</p>
+}
+else if (availableUsers is null)
+{
+    <p>Loading users...</p>
+}
+else
+{
+    <EditForm Model="@roleChange" OnValidSubmit="AssignRoleAsync">
+        <!-- User selection -->
+        <label>Select User</label>
+        <InputSelect @bind-Value="roleChange.UserEmail" class="form-select">
+            <option value="">-- Select a user --</option>
+            @foreach (var user in availableUsers)
+            {
+                <option value="@user.Email">
+                    @user.Email (@user.Role?.Name)
+                </option>
+            }
+        </InputSelect>
+
+        <!-- Role selection -->
+        <label>Select Role</label>
+        <InputSelect @bind-Value="roleChange.NewRole" class="form-select">
+            <option value="BasicUser">BasicUser</option>
+            <option value="AuthObserver">AuthObserver</option>
+            <option value="SecurityAuditor">SecurityAuditor</option>
+        </InputSelect>
+
+        <button type="submit" class="btn btn-primary mt-2">Assign Role</button>
+    </EditForm>
+}
+
+@code {
+    private bool authorized;
+    private RoleChangeDto roleChange = new();
+    private IEnumerable<IGetUsers_Users?>? availableUsers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        authorized = user.HasClaim("permissions", "Audit.RoleChanges");
+
+    
+            var userResult = await GraphQLClient.GetUsers.ExecuteAsync();
+            availableUsers = userResult.Data?.Users;
+        
+    }
+
+    private async Task AssignRoleAsync()
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var currentUser = authState.User;
+
+            var externalId = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(externalId))
+            {
+                Console.WriteLine("Current user external ID not found in claims.");
+                return;
+            }
+
+            var authorUser = await GraphQLClient.GetUsers.ExecuteAsync();
+            var authorUserId = authorUser.Data?.Users
+                .FirstOrDefault(u => u.ExternalId == externalId)?.Id;
+
+            if (authorUserId == null)
+            {
+                Console.WriteLine("Author user not found in database.");
+                return;
+            }
+
+            var roleQuery = await GraphQLClient.GetRoles.ExecuteAsync();
+            var roleId = roleQuery.Data?.Roles
+                .FirstOrDefault(r => r.Name == roleChange.NewRole)?.Id;
+
+            if (roleId == null)
+            {
+                Console.WriteLine($"Role {roleChange.NewRole} not found.");
+                return;
+            }
+
+            var targetUser = authorUser.Data?.Users
+                .FirstOrDefault(u => u.Email == roleChange.UserEmail);
+
+            if (targetUser == null)
+            {
+                Console.WriteLine($"Target user {roleChange.UserEmail} not found.");
+                return;
+            }
+
+            var result = await GraphQLClient.AssignRole
+                .ExecuteAsync(targetUser.Id, roleId.Value, authorUserId.Value);
+            
+            if (result.Data?.AssignUserRole != null)
+            {
+                Console.WriteLine($"Role assigned: {result.Data.AssignUserRole.FromRole} -> {result.Data.AssignUserRole.ToRole}");
+            }
+            else
+            {
+                Console.WriteLine("Role assignment failed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error assigning role: {ex.Message}");
+        }
+    }
+
+    
+}
