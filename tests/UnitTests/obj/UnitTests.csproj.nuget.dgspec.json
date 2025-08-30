@@ -319,6 +319,10 @@
               "target": "Package",
               "version": "[8.6.0, )"
             },
+            "HotChocolate.Execution": {
+              "target": "Package",
+              "version": "[15.1.9, )"
+            },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[8.0.19, )"
@@ -334,6 +338,10 @@
             "Moq.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "Snapshooter.Xunit": {
+              "target": "Package",
+              "version": "[1.0.1, )"
             },
             "coverlet.collector": {
               "target": "Package",
