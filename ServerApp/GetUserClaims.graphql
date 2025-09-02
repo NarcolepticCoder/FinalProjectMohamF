@@ -1,0 +1,6 @@
+query GetUserClaims($externalId: String!) {
+  userClaims(externalId: $externalId) {
+    type
+    value
+  }
+}

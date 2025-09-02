@@ -1,0 +1,104 @@
+@page "/audit"
+@using Microsoft.AspNetCore.Authorization
+@using StrawberryShake
+@using System.Security.Claims
+@attribute [Authorize]  
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IServerClient GraphQLClient
+
+<PageTitle>Security Audit Dashboard</PageTitle>
+
+<h3>Security Audit Dashboard</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Auth Events</h5>
+        @if (!canViewAuthEvents)
+        {
+            <p class="text-danger">Insufficient access. Contact your admin.</p>
+        }
+        else if (authEvents == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var ev in authEvents)
+                {
+                    <li class="list-group-item">
+                        <strong>@ev.OccurredUtc.ToLocalTime():</strong>
+                        @ev.AffectedUser.Email → @ev.EventType
+                        <br />
+                        <small>@ev.Details</small>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h5>Role Changes</h5>
+        @if (!canViewRoleChanges)
+        {
+            <p class="text-danger">Insufficient access. Contact your admin.</p>
+        }
+        else if (roleEvents == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var ev in roleEvents)
+                {
+                    <li class="list-group-item">
+                        <strong>@ev.OccurredUtc.ToLocalTime():</strong>
+                        AuthUser: @ev.AuthorUser.Email Changed @ev.AffectedUser.Email
+                        <br />
+                        <small>@ev.Details</small>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private bool canViewAuthEvents;
+    private bool canViewRoleChanges;
+    private List<IGetSecurityEvents_SecurityEvents_Nodes>? authEvents;
+    private List<IGetSecurityEvents_SecurityEvents_Nodes>? roleEvents;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        canViewAuthEvents = user.HasClaim("permissions", "Audit.ViewAuthEvents");
+        canViewRoleChanges = user.HasClaim("permissions", "Audit.RoleChanges");
+        
+  
+        var result = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
+
+        var events = result.Data?.SecurityEvents?.Nodes?.ToList() ?? new();
+        
+        if (canViewAuthEvents)
+        {
+            authEvents = events
+                .Where(e => e.EventType == "LoginSuccess" || e.EventType == "LogoutSuccess")
+                .OrderByDescending(e => e.OccurredUtc)
+                .ToList();
+        }
+
+        if (canViewRoleChanges)
+        {
+            roleEvents = events
+                .Where(e => e.EventType == "RoleAssigned")
+                .OrderByDescending(e => e.OccurredUtc)
+                .ToList();
+        }
+        
+        
+    }
+}

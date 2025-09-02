@@ -1,0 +1,3 @@
+mutation AuditLogout($input: AuditDtoInput!) {
+  auditLogout(input: $input)
+}

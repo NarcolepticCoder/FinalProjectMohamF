@@ -1,0 +1,15 @@
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/bin/Debug/net9.0/Data.deps.json
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/bin/Debug/net9.0/Data.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/bin/Debug/net9.0/Data.pdb
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.AssemblyInfoInputs.cache
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.AssemblyInfo.cs
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.csproj.CoreCompileInputs.cache
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/refint/Data.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.pdb
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/ref/Data.dll
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.csproj.AssemblyReference.cache
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.sourcelink.json
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/bin/Debug/net9.0/Data.runtimeconfig.json
+/Users/yorkmacbook017/Desktop/FinalProjectMohamF/Data/obj/Debug/net9.0/Data.genruntimeconfig.cache
