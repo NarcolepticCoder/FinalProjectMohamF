@@ -34,7 +34,7 @@ public class UserServiceTests
     public async Task GetUserClaimsAsync_ReturnsEmpty_WhenUserNotFound()
     {
         _repoMock.Setup(r => r.GetUserWithRoleAndClaimsAsync("123"))
-                 .ReturnsAsync((User)null);
+                 .ReturnsAsync((User?)null);
 
         var result = await _service.GetUserClaimsAsync("123");
 

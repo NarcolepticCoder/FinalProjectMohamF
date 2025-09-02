@@ -439,3 +439,4 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/obj/Debug/net8.0/UnitTests.pdb
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/obj/Debug/net8.0/UnitTests.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/obj/Debug/net8.0/ref/UnitTests.dll
+/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/obj/Debug/net8.0/UnitTests.sourcelink.json

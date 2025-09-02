@@ -63,7 +63,7 @@ namespace GraphQL.Services
 
 
 
-        public async Task<List<ClaimDto>> GetUserClaimsAsync(string externalId)
+        public async Task<List<ClaimDto>> GetUserClaimsAsync(string? externalId)
         {
             if (string.IsNullOrEmpty(externalId))
                 return new List<ClaimDto>();

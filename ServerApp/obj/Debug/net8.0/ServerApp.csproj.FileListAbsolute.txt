@@ -173,3 +173,4 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.pdb
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ref/ServerApp.dll
+/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.sourcelink.json

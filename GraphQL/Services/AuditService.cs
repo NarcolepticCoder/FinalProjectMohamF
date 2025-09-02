@@ -12,7 +12,7 @@ namespace GraphQL.Services
         _repo = repo;
     }
 
-    public async Task AuditLoginAsync(string email, string externalId, string provider)
+    public async Task AuditLoginAsync(string? email, string externalId, string provider)
     {
         if (string.IsNullOrEmpty(email)) return;
 
@@ -33,7 +33,7 @@ namespace GraphQL.Services
         await _repo.AddAuditEventAsync(audit);
     }
 
-    public async Task AuditLogoutAsync(string email, string externalId)
+    public async Task AuditLogoutAsync(string? email, string externalId)
     {
         if (string.IsNullOrEmpty(email)) return;
 

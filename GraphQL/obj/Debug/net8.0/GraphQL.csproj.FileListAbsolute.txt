@@ -359,3 +359,4 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/obj/Debug/net8.0/GraphQL.pdb
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/obj/Debug/net8.0/GraphQL.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/obj/Debug/net8.0/ref/GraphQL.dll
+/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/GraphQL/obj/Debug/net8.0/GraphQL.sourcelink.json

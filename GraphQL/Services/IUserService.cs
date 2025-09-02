@@ -6,6 +6,6 @@ namespace GraphQL.Services
     {
         Task<AssignRoleResult> AssignUserRoleAsync(
         Guid affectedUserId, Guid newRoleId, Guid currentUserId);
-        Task<List<ClaimDto>> GetUserClaimsAsync(string externalId);
+        Task<List<ClaimDto>> GetUserClaimsAsync(string? externalId);
     }
 }

@@ -55,7 +55,7 @@ public class AuditServiceTests
         var newUser = new User { Id = Guid.NewGuid(), Email = "new@example.com" };
 
         _repoMock.Setup(r => r.GetUserByEmailAsync("new@example.com"))
-                 .ReturnsAsync((User)null);
+                 .ReturnsAsync((User?)null);
         _repoMock.Setup(r => r.CreateUserAsync("new@example.com", "ext456"))
                  .ReturnsAsync(newUser);
 
@@ -84,7 +84,7 @@ public class AuditServiceTests
     public async Task AuditLogoutAsync_DoesNothing_WhenUserNotFound()
     {
         _repoMock.Setup(r => r.GetUserByEmailAsync("ghost@example.com"))
-                 .ReturnsAsync((User)null);
+                 .ReturnsAsync((User?)null);
 
         await _service.AuditLogoutAsync("ghost@example.com", "ext999");
 
