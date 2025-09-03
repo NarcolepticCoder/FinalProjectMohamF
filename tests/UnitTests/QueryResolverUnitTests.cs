@@ -1,16 +1,45 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using Data.Entities;
 using GraphQL;
+using HotChocolate.Execution;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
+
 
 namespace UnitTests
 {
     public class QueryResolverUnitTests
     {
+        [Fact]
+        public async Task GetUsers_ReturnsAllUsers()
+        {
+            // Arrange: unique DB per test
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseInMemoryDatabase($"{nameof(QueryResolverUnitTests)}.{nameof(GetUsers_ReturnsAllUsers)}")
+                .Options;
+
+            using var db = new AppDbContext(options);
+            var query = new Query();
+
+            var role = new Roles { Id = Guid.NewGuid(), Name = "Admin" };
+            db.AddRange(new User { Id = Guid.NewGuid(), ExternalId = "123", Email = "test123@email.com", Role = role },
+                        new User { Id = Guid.NewGuid(), ExternalId = "321", Email = "test321@email.com", Role = role });
+
+
+            db.Roles.Add(role);
+            await db.SaveChangesAsync();
+            // Act
+            var users = query.GetUsers(db).ToList();
+
+            // Assert
+            Assert.Equal(2, users.Count);                 // exactly 2 users
+            Assert.Contains(users, u => u.Email == "test123@email.com");
+            Assert.Contains(users, u => u.Email == "test321@email.com");
+            Assert.Contains(users, u => u.ExternalId == "123");
+            Assert.Contains(users, u => u.ExternalId == "321");
+        
+        
+            
+        }
         [Fact]
         public async Task GetRoles_ReturnsAllRoles()
         {

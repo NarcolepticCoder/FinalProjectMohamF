@@ -1,20 +1,12 @@
-﻿using System.Security.Claims;
-using Data;
+﻿
 using Data.Entities;
-using FluentAssertions;
 using GraphQL.Repositories;
 using GraphQL.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Client;
 using Moq;
 namespace UnitTests
 {
 
-    public class UnitTest1
+    public class AuditEventTests
     {
         [Fact]
         public async Task UserRoleAssignedShouldWrite_RoleAssignedEventOnSave()
