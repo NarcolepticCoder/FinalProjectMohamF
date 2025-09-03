@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUm9sZUFzc2lnbm1lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/Pages/UserClaims.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXNlckNsYWltcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

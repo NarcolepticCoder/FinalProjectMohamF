@@ -8,63 +8,60 @@
 
 <PageTitle>Security Audit Dashboard</PageTitle>
 
-<h3>Security Audit Dashboard</h3>
+@if (isReady)
+{
+    <h3>Security Audit Dashboard</h3>
 
-<div class="row">
-    <div class="col-md-6">
-        <h5>Auth Events</h5>
-        @if (!canViewAuthEvents)
-        {
-            <p class="text-danger">Insufficient access. Contact your admin.</p>
-        }
-        else if (authEvents == null)
-        {
-            <p>Loading...</p>
-        }
-        else
-        {
-            <ul class="list-group">
-                @foreach (var ev in authEvents)
-                {
-                    <li class="list-group-item">
-                        <strong>@ev.OccurredUtc.ToLocalTime():</strong>
-                        @ev.AffectedUser.Email → @ev.EventType
-                        <br />
-                        <small>@ev.Details</small>
-                    </li>
-                }
-            </ul>
-        }
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Auth Events</h5>
+            @if (!canViewAuthEvents)
+            {
+                <p class="text-danger">Insufficient access. Contact your admin.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var ev in authEvents!)
+                    {
+                        <li class="list-group-item">
+                            <strong>@ev.OccurredUtc.ToLocalTime():</strong>
+                            @ev.AffectedUser.Email → @ev.EventType
+                            <br />
+                            <small>@ev.Details</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    
+        <div class="col-md-6">
+            <h5>Role changes</h5>
+            @if (!canViewRoleChanges)
+            {
+                <p class="text-danger">Insufficient access. Contact your admin.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var ev in roleEvents!)
+                    {
+                        <li class="list-group-item">
+                            <strong>@ev.OccurredUtc.ToLocalTime():</strong>
+                            AuthUser: @ev.AuthorUser.Email Changed @ev.AffectedUser.Email
+                            <br />
+                            <small>@ev.Details</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
     </div>
+}
 
-    <div class="col-md-6">
-        <h5>Role Changes</h5>
-        @if (!canViewRoleChanges)
-        {
-            <p class="text-danger">Insufficient access. Contact your admin.</p>
-        }
-        else if (roleEvents == null)
-        {
-            <p>Loading...</p>
-        }
-        else
-        {
-            <ul class="list-group">
-                @foreach (var ev in roleEvents)
-                {
-                    <li class="list-group-item">
-                        <strong>@ev.OccurredUtc.ToLocalTime():</strong>
-                        AuthUser: @ev.AuthorUser.Email Changed @ev.AffectedUser.Email
-                        <br />
-                        <small>@ev.Details</small>
-                    </li>
-                }
-            </ul>
-        }
-    </div>
-</div>
 
 @code {
+    private bool isReady = false;
     private bool canViewAuthEvents;
     private bool canViewRoleChanges;
     private List<IGetSecurityEvents_SecurityEvents_Nodes>? authEvents;
@@ -73,10 +70,18 @@
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
+        var currentUser = authState.User;
 
-        canViewAuthEvents = user.HasClaim("permissions", "Audit.ViewAuthEvents");
-        canViewRoleChanges = user.HasClaim("permissions", "Audit.RoleChanges");
+        // Get external ID of current user
+        var externalId = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        
+        // Fetch fresh claims from DB via GraphQL
+        var claimResult = await GraphQLClient.GetUserClaims.ExecuteAsync(externalId!);
+        var userClaims = claimResult.Data?.UserClaims ?? Array.Empty<IGetUserClaims_UserClaims>();
+
+        canViewAuthEvents = userClaims.Any(c => c.Value == "Audit.ViewAuthEvents");
+        canViewRoleChanges = userClaims.Any(c => c.Value == "Audit.RoleChanges");
         
   
         var result = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
@@ -98,6 +103,7 @@
                 .OrderByDescending(e => e.OccurredUtc)
                 .ToList();
         }
+        isReady = true;
         
         
     }

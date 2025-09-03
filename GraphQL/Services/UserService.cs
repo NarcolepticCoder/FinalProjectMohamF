@@ -1,5 +1,6 @@
 
 using System.Security.Claims;
+using Data.Dtos;
 using Data.DTOs;
 using Data.Entities;
 using GraphQL.Repositories;
@@ -15,7 +16,7 @@ namespace GraphQL.Services
             _repo = repo;
         }
 
-    public async Task<AssignRoleResult> AssignUserRoleAsync(
+    public async Task<AssignRoleResultDto> AssignUserRoleAsync(
         Guid affectedUserId, Guid newRoleId, Guid currentUserId)
     {
             // Get users
@@ -52,7 +53,7 @@ namespace GraphQL.Services
             await _repo.AddSecurityEventAsync(evt);
 
             // Return full users
-            return new AssignRoleResult
+            return new AssignRoleResultDto
             {
                 AuthorUser = authorUser,
                 AffectedUser = affectedUser,

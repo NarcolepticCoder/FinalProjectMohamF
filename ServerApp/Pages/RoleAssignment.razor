@@ -9,7 +9,8 @@
 <PageTitle>Assign User Role</PageTitle>
 
 <h3>Assign Role</h3>
-
+@if (isReady)
+{
 @if (!authorized)
 {
     <p class="text-danger">You do not have permission to view this page.</p>
@@ -44,8 +45,9 @@ else
         <button type="submit" class="btn btn-primary mt-2">Assign Role</button>
     </EditForm>
 }
-
+}
 @code {
+    private bool isReady = false;
     private bool authorized;
     private RoleChangeDto roleChange = new();
     private IEnumerable<IGetUsers_Users?>? availableUsers;
@@ -54,11 +56,14 @@ else
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
+        var externalId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        authorized = user.HasClaim("permissions", "Audit.RoleChanges");
+        var result = await GraphQLClient.GetUserClaims.ExecuteAsync(externalId!);
+        authorized = result.Data?.UserClaims.Any(c => c.Value == "Audit.RoleChanges") ?? false;
 
         var userResult = await GraphQLClient.GetUsers.ExecuteAsync();
         availableUsers = userResult.Data?.Users;
+        isReady = true;
         
     }
 

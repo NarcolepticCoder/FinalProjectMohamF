@@ -1,8 +1,8 @@
 using Data.Entities;
 
-namespace GraphQL
+namespace Data.Dtos
 {
-    public class AssignRoleResult  // DTO for GraphQL output
+    public class AssignRoleResultDto  // DTO for GraphQL output
     {
         
         public User AuthorUser { get; set; } = default!;

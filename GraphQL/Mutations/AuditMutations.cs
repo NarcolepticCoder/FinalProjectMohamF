@@ -1,3 +1,4 @@
+using Data.Dtos;
 using GraphQL.Services;
 
 namespace GraphQL.Mutations
@@ -5,10 +6,10 @@ namespace GraphQL.Mutations
     [ExtendObjectType(typeof(Mutation))]
     public class AuditMutations
     {
-        
+
 
         // Inject the service through constructor
-        
+
 
         public async Task<string> AuditLogin(AuditDto input, [Service] IAuditService auditService)
         {
@@ -22,7 +23,5 @@ namespace GraphQL.Mutations
             return "Logout audit recorded";
         }
     }
-
-// DTO remains the same
-public record AuditDto(string Email, string ExternalId, string? Provider = null);
 }
+

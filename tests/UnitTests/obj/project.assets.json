@@ -7104,7 +7104,7 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 8.0.19",
       "Microsoft.NET.Test.Sdk >= 17.12.0",
       "Moq >= 4.20.72",
-      "Moq.EntityFrameworkCore >= 8.0.1",
+      "Moq.EntityFrameworkCore >= 8.0.1.1",
       "ServerApp >= 1.0.0",
       "Snapshooter.Xunit >= 1.0.1",
       "coverlet.collector >= 6.0.2",
@@ -7187,7 +7187,7 @@
           },
           "Moq.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[8.0.1, )"
+            "version": "[8.0.1.1, )"
           },
           "Snapshooter.Xunit": {
             "target": "Package",
@@ -7225,17 +7225,5 @@
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "UnitTests depends on Moq.EntityFrameworkCore (>= 8.0.1) but Moq.EntityFrameworkCore 8.0.1 was not found. Moq.EntityFrameworkCore 8.0.1.1 was resolved instead.",
-      "libraryId": "Moq.EntityFrameworkCore",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

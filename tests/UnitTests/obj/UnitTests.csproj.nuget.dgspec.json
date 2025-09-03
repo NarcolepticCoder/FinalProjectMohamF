@@ -337,7 +337,7 @@
             },
             "Moq.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[8.0.1.1, )"
             },
             "Snapshooter.Xunit": {
               "target": "Package",

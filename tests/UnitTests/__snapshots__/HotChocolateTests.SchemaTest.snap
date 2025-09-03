@@ -3,7 +3,7 @@
   mutation: Mutation
 }
 
-type AssignRoleResult {
+type AssignRoleResultDto {
   authorUser: User!
   affectedUser: User!
   fromRole: String!
@@ -23,7 +23,7 @@ type Claims {
 }
 
 type Mutation {
-  assignUserRole(userId: UUID! roleId: UUID! authorUserId: UUID!): AssignRoleResult!
+  assignUserRole(userId: UUID! roleId: UUID! authorUserId: UUID!): AssignRoleResultDto!
   auditLogin(input: AuditDtoInput!): String!
   auditLogout(input: AuditDtoInput!): String!
 }
