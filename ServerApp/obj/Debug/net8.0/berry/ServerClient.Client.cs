@@ -44,11 +44,11 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.AssignRole_AssignUserRole_AffectedUser_Role_Roles>, global::ServerApp.State.AssignRole_AssignUserRole_AffectedUser_Role_RolesFromRolesEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetUsers_Users_User>, global::ServerApp.State.GetUsers_Users_UserFromUserEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetUsers_Users_Role_Roles>, global::ServerApp.State.GetUsers_Users_Role_RolesFromRolesEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_SecurityEvents>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_AuthorUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_AffectedUser_User>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, global::ServerApp.GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles>, global::ServerApp.State.GetSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.StringSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.BooleanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteSerializer>(services);
@@ -367,9 +367,9 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class AssignRole_AssignUserRole_AssignRoleResult : global::System.IEquatable<AssignRole_AssignUserRole_AssignRoleResult>, IAssignRole_AssignUserRole_AssignRoleResult
+    public partial class AssignRole_AssignUserRole_AssignRoleResultDto : global::System.IEquatable<AssignRole_AssignUserRole_AssignRoleResultDto>, IAssignRole_AssignUserRole_AssignRoleResultDto
     {
-        public AssignRole_AssignUserRole_AssignRoleResult(global::System.String fromRole, global::System.String toRole, global::ServerApp.IAssignRole_AssignUserRole_AuthorUser authorUser, global::ServerApp.IAssignRole_AssignUserRole_AffectedUser affectedUser)
+        public AssignRole_AssignUserRole_AssignRoleResultDto(global::System.String fromRole, global::System.String toRole, global::ServerApp.IAssignRole_AssignUserRole_AuthorUser authorUser, global::ServerApp.IAssignRole_AssignUserRole_AffectedUser affectedUser)
         {
             FromRole = fromRole;
             ToRole = toRole;
@@ -382,7 +382,7 @@ namespace ServerApp
         public global::ServerApp.IAssignRole_AssignUserRole_AuthorUser AuthorUser { get; }
         public global::ServerApp.IAssignRole_AssignUserRole_AffectedUser AffectedUser { get; }
 
-        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AssignRoleResult? other)
+        public virtual global::System.Boolean Equals(AssignRole_AssignUserRole_AssignRoleResultDto? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -419,7 +419,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((AssignRole_AssignUserRole_AssignRoleResult)obj);
+            return Equals((AssignRole_AssignUserRole_AssignRoleResultDto)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -714,7 +714,7 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IAssignRole_AssignUserRole_AssignRoleResult : IAssignRole_AssignUserRole
+    public partial interface IAssignRole_AssignUserRole_AssignRoleResultDto : IAssignRole_AssignUserRole
     {
     }
 
@@ -1002,12 +1002,12 @@ namespace ServerApp
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial class GetSecurityEventsResult : global::System.IEquatable<GetSecurityEventsResult>, IGetSecurityEventsResult
     {
-        public GetSecurityEventsResult(global::ServerApp.IGetSecurityEvents_SecurityEvents? securityEvents)
+        public GetSecurityEventsResult(global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents> securityEvents)
         {
             SecurityEvents = securityEvents;
         }
 
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents? SecurityEvents { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents> SecurityEvents { get; }
 
         public virtual global::System.Boolean Equals(GetSecurityEventsResult? other)
         {
@@ -1026,7 +1026,7 @@ namespace ServerApp
                 return false;
             }
 
-            return (((SecurityEvents is null && other.SecurityEvents is null) || SecurityEvents != null && SecurityEvents.Equals(other.SecurityEvents)));
+            return (global::StrawberryShake.Internal.ComparisonHelper.SequenceEqual(SecurityEvents, other.SecurityEvents));
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -1054,83 +1054,9 @@ namespace ServerApp
             unchecked
             {
                 int hash = 5;
-                if (SecurityEvents != null)
+                foreach (var SecurityEvents_elm in SecurityEvents)
                 {
-                    hash ^= 397 * SecurityEvents.GetHashCode();
-                }
-
-                return hash;
-            }
-        }
-    }
-
-    /// <summary>
-    /// A connection to a list of items.
-    /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_SecurityEventsConnection : global::System.IEquatable<GetSecurityEvents_SecurityEvents_SecurityEventsConnection>, IGetSecurityEvents_SecurityEvents_SecurityEventsConnection
-    {
-        public GetSecurityEvents_SecurityEvents_SecurityEventsConnection(global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? nodes)
-        {
-            Nodes = nodes;
-        }
-
-        /// <summary>
-        /// A flattened list of the nodes.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? Nodes { get; }
-
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_SecurityEventsConnection? other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (global::StrawberryShake.Internal.ComparisonHelper.SequenceEqual(Nodes, other.Nodes));
-        }
-
-        public override global::System.Boolean Equals(global::System.Object? obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((GetSecurityEvents_SecurityEvents_SecurityEventsConnection)obj);
-        }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-                if (Nodes != null)
-                {
-                    foreach (var Nodes_elm in Nodes)
-                    {
-                        hash ^= 397 * Nodes_elm.GetHashCode();
-                    }
+                    hash ^= 397 * SecurityEvents_elm.GetHashCode();
                 }
 
                 return hash;
@@ -1139,9 +1065,9 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>, IGetSecurityEvents_SecurityEvents_Nodes_SecurityEvents
+    public partial class GetSecurityEvents_SecurityEvents_SecurityEvents : global::System.IEquatable<GetSecurityEvents_SecurityEvents_SecurityEvents>, IGetSecurityEvents_SecurityEvents_SecurityEvents
     {
-        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents(global::System.Guid id, global::System.String eventType, global::System.DateTimeOffset occurredUtc, global::System.String? details, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser authorUser, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser affectedUser)
+        public GetSecurityEvents_SecurityEvents_SecurityEvents(global::System.Guid id, global::System.String eventType, global::System.DateTimeOffset occurredUtc, global::System.String? details, global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser authorUser, global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser affectedUser)
         {
             Id = id;
             EventType = eventType;
@@ -1155,10 +1081,10 @@ namespace ServerApp
         public global::System.String EventType { get; }
         public global::System.DateTimeOffset OccurredUtc { get; }
         public global::System.String? Details { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser AuthorUser { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser AffectedUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser AffectedUser { get; }
 
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents? other)
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_SecurityEvents? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -1195,7 +1121,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents)obj);
+            return Equals((GetSecurityEvents_SecurityEvents_SecurityEvents)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1219,9 +1145,9 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>, IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User
+    public partial class GetSecurityEvents_SecurityEvents_AuthorUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_AuthorUser_User>, IGetSecurityEvents_SecurityEvents_AuthorUser_User
     {
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role role)
+        public GetSecurityEvents_SecurityEvents_AuthorUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser_Role role)
         {
             Id = id;
             Email = email;
@@ -1230,9 +1156,9 @@ namespace ServerApp
 
         public global::System.Guid Id { get; }
         public global::System.String Email { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role Role { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser_Role Role { get; }
 
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User? other)
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_AuthorUser_User? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -1269,7 +1195,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User)obj);
+            return Equals((GetSecurityEvents_SecurityEvents_AuthorUser_User)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1286,9 +1212,9 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>, IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User
+    public partial class GetSecurityEvents_SecurityEvents_AffectedUser_User : global::System.IEquatable<GetSecurityEvents_SecurityEvents_AffectedUser_User>, IGetSecurityEvents_SecurityEvents_AffectedUser_User
     {
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role role)
+        public GetSecurityEvents_SecurityEvents_AffectedUser_User(global::System.Guid id, global::System.String email, global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser_Role role)
         {
             Id = id;
             Email = email;
@@ -1297,9 +1223,9 @@ namespace ServerApp
 
         public global::System.Guid Id { get; }
         public global::System.String Email { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role Role { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser_Role Role { get; }
 
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User? other)
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_AffectedUser_User? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -1336,7 +1262,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User)obj);
+            return Equals((GetSecurityEvents_SecurityEvents_AffectedUser_User)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1353,16 +1279,16 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles
+    public partial class GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles
     {
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles(global::System.String name)
+        public GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles(global::System.String name)
         {
             Name = name;
         }
 
         public global::System.String Name { get; }
 
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles? other)
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -1399,7 +1325,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles)obj);
+            return Equals((GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1414,16 +1340,16 @@ namespace ServerApp
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles
+    public partial class GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles : global::System.IEquatable<GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles>, IGetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles
     {
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles(global::System.String name)
+        public GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles(global::System.String name)
         {
             Name = name;
         }
 
         public global::System.String Name { get; }
 
-        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles? other)
+        public virtual global::System.Boolean Equals(GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles? other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -1460,7 +1386,7 @@ namespace ServerApp
                 return false;
             }
 
-            return Equals((GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles)obj);
+            return Equals((GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1477,90 +1403,70 @@ namespace ServerApp
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial interface IGetSecurityEventsResult
     {
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents? SecurityEvents { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents> SecurityEvents { get; }
     }
 
-    /// <summary>
-    /// A connection to a list of items.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
     public partial interface IGetSecurityEvents_SecurityEvents
-    {
-        /// <summary>
-        /// A flattened list of the nodes.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? Nodes { get; }
-    }
-
-    /// <summary>
-    /// A connection to a list of items.
-    /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_SecurityEventsConnection : IGetSecurityEvents_SecurityEvents
-    {
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes
     {
         public global::System.Guid Id { get; }
         public global::System.String EventType { get; }
         public global::System.DateTimeOffset OccurredUtc { get; }
         public global::System.String? Details { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser AuthorUser { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser AffectedUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser AuthorUser { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser AffectedUser { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_SecurityEvents : IGetSecurityEvents_SecurityEvents_Nodes
+    public partial interface IGetSecurityEvents_SecurityEvents_SecurityEvents : IGetSecurityEvents_SecurityEvents
     {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser
-    {
-        public global::System.Guid Id { get; }
-        public global::System.String Email { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role Role { get; }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User : IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser
-    {
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser
+    public partial interface IGetSecurityEvents_SecurityEvents_AuthorUser
     {
         public global::System.Guid Id { get; }
         public global::System.String Email { get; }
-        public global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role Role { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser_Role Role { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User : IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser
+    public partial interface IGetSecurityEvents_SecurityEvents_AuthorUser_User : IGetSecurityEvents_SecurityEvents_AuthorUser
     {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role
+    public partial interface IGetSecurityEvents_SecurityEvents_AffectedUser
+    {
+        public global::System.Guid Id { get; }
+        public global::System.String Email { get; }
+        public global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser_Role Role { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_AffectedUser_User : IGetSecurityEvents_SecurityEvents_AffectedUser
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
+    public partial interface IGetSecurityEvents_SecurityEvents_AuthorUser_Role
     {
         public global::System.String Name { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles : IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role
+    public partial interface IGetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles : IGetSecurityEvents_SecurityEvents_AuthorUser_Role
     {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role
+    public partial interface IGetSecurityEvents_SecurityEvents_AffectedUser_Role
     {
         public global::System.String Name { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial interface IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles : IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role
+    public partial interface IGetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles : IGetSecurityEvents_SecurityEvents_AffectedUser_Role
     {
     }
 
@@ -3186,45 +3092,42 @@ namespace ServerApp
     /// query GetSecurityEvents {
     ///   securityEvents {
     ///     __typename
-    ///     nodes {
+    ///     id
+    ///     eventType
+    ///     occurredUtc
+    ///     details
+    ///     authorUser {
     ///       __typename
     ///       id
-    ///       eventType
-    ///       occurredUtc
-    ///       details
-    ///       authorUser {
+    ///       email
+    ///       role {
     ///         __typename
-    ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       affectedUser {
-    ///         __typename
+    ///       ... on User {
     ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       ... on SecurityEvents {
+    ///       ... on User {
     ///         id
     ///       }
+    ///     }
+    ///     ... on SecurityEvents {
+    ///       id
     ///     }
     ///   }
     /// }
@@ -3280,25 +3183,6 @@ namespace ServerApp
             0x65,
             0x6e,
             0x74,
-            0x73,
-            0x20,
-            0x7b,
-            0x20,
-            0x5f,
-            0x5f,
-            0x74,
-            0x79,
-            0x70,
-            0x65,
-            0x6e,
-            0x61,
-            0x6d,
-            0x65,
-            0x20,
-            0x6e,
-            0x6f,
-            0x64,
-            0x65,
             0x73,
             0x20,
             0x7b,
@@ -3578,11 +3462,9 @@ namespace ServerApp
             0x20,
             0x7d,
             0x20,
-            0x7d,
-            0x20,
             0x7d
         };
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "fb420c93f0e3d39a3774321ebda4b5c6");
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "5297320729f623eab6e2f6452faa3a05");
 
         public override global::System.String ToString()
         {
@@ -3600,45 +3482,42 @@ namespace ServerApp
     /// query GetSecurityEvents {
     ///   securityEvents {
     ///     __typename
-    ///     nodes {
+    ///     id
+    ///     eventType
+    ///     occurredUtc
+    ///     details
+    ///     authorUser {
     ///       __typename
     ///       id
-    ///       eventType
-    ///       occurredUtc
-    ///       details
-    ///       authorUser {
+    ///       email
+    ///       role {
     ///         __typename
-    ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       affectedUser {
-    ///         __typename
+    ///       ... on User {
     ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       ... on SecurityEvents {
+    ///       ... on User {
     ///         id
     ///       }
+    ///     }
+    ///     ... on SecurityEvents {
+    ///       id
     ///     }
     ///   }
     /// }
@@ -3716,45 +3595,42 @@ namespace ServerApp
     /// query GetSecurityEvents {
     ///   securityEvents {
     ///     __typename
-    ///     nodes {
+    ///     id
+    ///     eventType
+    ///     occurredUtc
+    ///     details
+    ///     authorUser {
     ///       __typename
     ///       id
-    ///       eventType
-    ///       occurredUtc
-    ///       details
-    ///       authorUser {
+    ///       email
+    ///       role {
     ///         __typename
-    ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       affectedUser {
-    ///         __typename
+    ///       ... on User {
     ///         id
-    ///         email
-    ///         role {
-    ///           __typename
-    ///           name
-    ///           ... on Roles {
-    ///             id
-    ///           }
-    ///         }
-    ///         ... on User {
+    ///       }
+    ///     }
+    ///     affectedUser {
+    ///       __typename
+    ///       id
+    ///       email
+    ///       role {
+    ///         __typename
+    ///         name
+    ///         ... on Roles {
     ///           id
     ///         }
     ///       }
-    ///       ... on SecurityEvents {
+    ///       ... on User {
     ///         id
     ///       }
+    ///     }
+    ///     ... on SecurityEvents {
+    ///       id
     ///     }
     ///   }
     /// }
@@ -4679,12 +4555,12 @@ namespace ServerApp.State
             throw new global::System.ArgumentException("AssignRoleResultInfo expected.");
         }
 
-        private global::ServerApp.IAssignRole_AssignUserRole MapNonNullableIAssignRole_AssignUserRole(global::ServerApp.State.AssignRoleResultData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IAssignRole_AssignUserRole MapNonNullableIAssignRole_AssignUserRole(global::ServerApp.State.AssignRoleResultDtoData data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             IAssignRole_AssignUserRole returnValue = default !;
-            if (data.__typename.Equals("AssignRoleResult", global::System.StringComparison.Ordinal))
+            if (data.__typename.Equals("AssignRoleResultDto", global::System.StringComparison.Ordinal))
             {
-                returnValue = new AssignRole_AssignUserRole_AssignRoleResult(data.FromRole ?? throw new global::System.ArgumentNullException(), data.ToRole ?? throw new global::System.ArgumentNullException(), MapNonNullableIAssignRole_AssignUserRole_AuthorUser(data.AuthorUser ?? throw new global::System.ArgumentNullException(), snapshot), MapNonNullableIAssignRole_AssignUserRole_AffectedUser(data.AffectedUser ?? throw new global::System.ArgumentNullException(), snapshot));
+                returnValue = new AssignRole_AssignUserRole_AssignRoleResultDto(data.FromRole ?? throw new global::System.ArgumentNullException(), data.ToRole ?? throw new global::System.ArgumentNullException(), MapNonNullableIAssignRole_AssignUserRole_AuthorUser(data.AuthorUser ?? throw new global::System.ArgumentNullException(), snapshot), MapNonNullableIAssignRole_AssignUserRole_AffectedUser(data.AffectedUser ?? throw new global::System.ArgumentNullException(), snapshot));
             }
             else
             {
@@ -4745,14 +4621,14 @@ namespace ServerApp.State
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
         private readonly global::System.UInt64 _version;
-        public AssignRoleResultInfo(global::ServerApp.State.AssignRoleResultData assignUserRole, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        public AssignRoleResultInfo(global::ServerApp.State.AssignRoleResultDtoData assignUserRole, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
         {
             AssignUserRole = assignUserRole;
             _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
             _version = version;
         }
 
-        public global::ServerApp.State.AssignRoleResultData AssignUserRole { get; }
+        public global::ServerApp.State.AssignRoleResultDtoData AssignUserRole { get; }
         public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
         public global::System.UInt64 Version => _version;
 
@@ -4848,19 +4724,11 @@ namespace ServerApp.State
     public partial class GetSecurityEventsResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::ServerApp.GetSecurityEventsResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents> _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
-        public GetSecurityEventsResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents> getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_SecurityEvents> _getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper;
+        public GetSecurityEventsResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_SecurityEvents> getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper = getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper = getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper));
         }
 
         global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::ServerApp.IGetSecurityEventsResult);
@@ -4874,93 +4742,33 @@ namespace ServerApp.State
 
             if (dataInfo is GetSecurityEventsResultInfo info)
             {
-                return new GetSecurityEventsResult(MapIGetSecurityEvents_SecurityEvents(info.SecurityEvents, snapshot));
+                return new GetSecurityEventsResult(MapNonNullableIGetSecurityEvents_SecurityEventsNonNullableArray(info.SecurityEvents, snapshot));
             }
 
             throw new global::System.ArgumentException("GetSecurityEventsResultInfo expected.");
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents? MapIGetSecurityEvents_SecurityEvents(global::ServerApp.State.SecurityEventsConnectionData? data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (data is null)
-            {
-                return null;
-            }
-
-            IGetSecurityEvents_SecurityEvents returnValue = default !;
-            if (data?.__typename.Equals("SecurityEventsConnection", global::System.StringComparison.Ordinal) ?? false)
-            {
-                returnValue = new GetSecurityEvents_SecurityEvents_SecurityEventsConnection(MapIGetSecurityEvents_SecurityEvents_NodesNonNullableArray(data.Nodes, snapshot));
-            }
-            else
-            {
-                throw new global::System.NotSupportedException();
-            }
-
-            return returnValue;
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>? MapIGetSecurityEvents_SecurityEvents_NodesNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::System.Collections.Generic.IReadOnlyList<global::ServerApp.IGetSecurityEvents_SecurityEvents> MapNonNullableIGetSecurityEvents_SecurityEventsNonNullableArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (list is null)
             {
-                return null;
+                throw new global::System.ArgumentNullException();
             }
 
-            var securityEventss = new global::System.Collections.Generic.List<global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes>();
+            var securityEventss = new global::System.Collections.Generic.List<global::ServerApp.IGetSecurityEvents_SecurityEvents>();
             foreach (global::StrawberryShake.EntityId child in list)
             {
-                securityEventss.Add(MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes(child, snapshot));
+                securityEventss.Add(MapNonNullableIGetSecurityEvents_SecurityEvents(child, snapshot));
             }
 
             return securityEventss;
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents MapNonNullableIGetSecurityEvents_SecurityEvents(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("SecurityEvents", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.SecurityEventsEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
-            {
-                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
-            {
-                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
-            {
-                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
-            {
-                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.SecurityEventsEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -4977,14 +4785,14 @@ namespace ServerApp.State
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
         private readonly global::System.UInt64 _version;
-        public GetSecurityEventsResultInfo(global::ServerApp.State.SecurityEventsConnectionData? securityEvents, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        public GetSecurityEventsResultInfo(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> securityEvents, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
         {
             SecurityEvents = securityEvents;
             _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
             _version = version;
         }
 
-        public global::ServerApp.State.SecurityEventsConnectionData? SecurityEvents { get; }
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> SecurityEvents { get; }
         public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
         public global::System.UInt64 Version => _version;
 
@@ -5333,7 +5141,7 @@ namespace ServerApp.State
         {
             var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
             global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
-            global::ServerApp.State.AssignRoleResultData assignUserRoleId = default !;
+            global::ServerApp.State.AssignRoleResultDtoData assignUserRoleId = default !;
             _entityStore.Update(session =>
             {
                 assignUserRoleId = Deserialize_NonNullableIAssignRole_AssignUserRole(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "assignUserRole"), entityIds);
@@ -5342,7 +5150,7 @@ namespace ServerApp.State
             return new AssignRoleResultInfo(assignUserRoleId, entityIds, snapshot.Version);
         }
 
-        private global::ServerApp.State.AssignRoleResultData Deserialize_NonNullableIAssignRole_AssignUserRole(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::ServerApp.State.AssignRoleResultDtoData Deserialize_NonNullableIAssignRole_AssignUserRole(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -5355,9 +5163,9 @@ namespace ServerApp.State
             }
 
             var typename = obj.Value.GetProperty("__typename").GetString();
-            if (typename?.Equals("AssignRoleResult", global::System.StringComparison.Ordinal) ?? false)
+            if (typename?.Equals("AssignRoleResultDto", global::System.StringComparison.Ordinal) ?? false)
             {
-                return new global::ServerApp.State.AssignRoleResultData(typename, fromRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "fromRole")), toRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "toRole")), authorUser: Update_NonNullableIAssignRole_AssignUserRole_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), affectedUser: Update_NonNullableIAssignRole_AssignUserRole_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds));
+                return new global::ServerApp.State.AssignRoleResultDtoData(typename, fromRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "fromRole")), toRole: Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "toRole")), authorUser: Update_NonNullableIAssignRole_AssignUserRole_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), affectedUser: Update_NonNullableIAssignRole_AssignUserRole_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds));
             }
 
             throw new global::System.NotSupportedException();
@@ -5687,58 +5495,37 @@ namespace ServerApp.State
         {
             var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
             global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
-            global::ServerApp.State.SecurityEventsConnectionData? securityEventsId = default !;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> securityEventsId = default !;
             _entityStore.Update(session =>
             {
-                securityEventsId = Deserialize_IGetSecurityEvents_SecurityEvents(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "securityEvents"), entityIds);
+                securityEventsId = Update_NonNullableIGetSecurityEvents_SecurityEventsEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "securityEvents"), entityIds);
                 snapshot = session.CurrentSnapshot;
             });
             return new GetSecurityEventsResultInfo(securityEventsId, entityIds, snapshot.Version);
         }
 
-        private global::ServerApp.State.SecurityEventsConnectionData? Deserialize_IGetSecurityEvents_SecurityEvents(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> Update_NonNullableIGetSecurityEvents_SecurityEventsEntityNonNullableArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
-                return null;
+                throw new global::System.ArgumentNullException();
             }
 
             if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
             {
-                return null;
-            }
-
-            var typename = obj.Value.GetProperty("__typename").GetString();
-            if (typename?.Equals("SecurityEventsConnection", global::System.StringComparison.Ordinal) ?? false)
-            {
-                return new global::ServerApp.State.SecurityEventsConnectionData(typename, nodes: Update_IGetSecurityEvents_SecurityEvents_NodesEntityNonNullableArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "nodes"), entityIds));
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? Update_IGetSecurityEvents_SecurityEvents_NodesEntityNonNullableArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            if (obj.Value.ValueKind == global::System.Text.Json.JsonValueKind.Null)
-            {
-                return null;
+                throw new global::System.ArgumentNullException();
             }
 
             var securityEventss = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
             foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
             {
-                securityEventss.Add(Update_NonNullableIGetSecurityEvents_SecurityEvents_NodesEntity(session, child, entityIds));
+                securityEventss.Add(Update_NonNullableIGetSecurityEvents_SecurityEventsEntity(session, child, entityIds));
             }
 
             return securityEventss;
         }
 
-        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_NodesEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEventsEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -5756,11 +5543,11 @@ namespace ServerApp.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.SecurityEventsEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
+                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
+                    session.SetEntity(entityId, new global::ServerApp.State.SecurityEventsEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "eventType")), Deserialize_NonNullableDateTimeOffset(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "occurredUtc")), Deserialize_String(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "details")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "authorUser"), entityIds), Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUserEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "affectedUser"), entityIds)));
                 }
 
                 return entityId;
@@ -5829,7 +5616,7 @@ namespace ServerApp.State
             return _stringParser.Parse(obj.Value.GetString()!);
         }
 
-        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -5847,11 +5634,11 @@ namespace ServerApp.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
                 }
 
                 return entityId;
@@ -5860,7 +5647,7 @@ namespace ServerApp.State
             throw new global::System.NotSupportedException();
         }
 
-        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -5891,7 +5678,7 @@ namespace ServerApp.State
             throw new global::System.NotSupportedException();
         }
 
-        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUserEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -5909,11 +5696,11 @@ namespace ServerApp.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::ServerApp.State.UserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), entity.ExternalId));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
+                    session.SetEntity(entityId, new global::ServerApp.State.UserEntity(Deserialize_NonNullableGuid(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), Deserialize_NonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_RoleEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "role"), entityIds), default !));
                 }
 
                 return entityId;
@@ -5922,7 +5709,7 @@ namespace ServerApp.State
             throw new global::System.NotSupportedException();
         }
 
-        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        private global::StrawberryShake.EntityId Update_NonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_RoleEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {
@@ -6126,9 +5913,9 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class AssignRoleResultData
+    public partial class AssignRoleResultDtoData
     {
-        public AssignRoleResultData(global::System.String __typename, global::System.String? fromRole = default !, global::System.String? toRole = default !, global::StrawberryShake.EntityId? authorUser = default !, global::StrawberryShake.EntityId? affectedUser = default !)
+        public AssignRoleResultDtoData(global::System.String __typename, global::System.String? fromRole = default !, global::System.String? toRole = default !, global::StrawberryShake.EntityId? authorUser = default !, global::StrawberryShake.EntityId? affectedUser = default !)
         {
             this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
             FromRole = fromRole;
@@ -6142,21 +5929,6 @@ namespace ServerApp.State
         public global::System.String? ToRole { get; }
         public global::StrawberryShake.EntityId? AuthorUser { get; }
         public global::StrawberryShake.EntityId? AffectedUser { get; }
-    }
-
-    ///<summary>A connection to a list of items.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class SecurityEventsConnectionData
-    {
-        public SecurityEventsConnectionData(global::System.String __typename, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? nodes = default !)
-        {
-            this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
-            Nodes = nodes;
-        }
-
-        public global::System.String __typename { get; }
-        ///<summary>A flattened list of the nodes.</summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? Nodes { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
@@ -6351,67 +6123,67 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents>
+    public partial class GetSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.SecurityEventsEntity, GetSecurityEvents_SecurityEvents_SecurityEvents>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
-        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEventsFromSecurityEventsEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AuthorUser_User> _getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AffectedUser_User> _getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_SecurityEventsFromSecurityEventsEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AuthorUser_User> getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AffectedUser_User> getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper));
-            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper = getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper));
+            _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper));
         }
 
-        public GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents Map(global::ServerApp.State.SecurityEventsEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public GetSecurityEvents_SecurityEvents_SecurityEvents Map(global::ServerApp.State.SecurityEventsEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetSecurityEvents_SecurityEvents_Nodes_SecurityEvents(entity.Id, entity.EventType, entity.OccurredUtc, entity.Details, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(entity.AuthorUser, snapshot), MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(entity.AffectedUser, snapshot));
+            return new GetSecurityEvents_SecurityEvents_SecurityEvents(entity.Id, entity.EventType, entity.OccurredUtc, entity.Details, MapNonNullableIGetSecurityEvents_SecurityEvents_AuthorUser(entity.AuthorUser, snapshot), MapNonNullableIGetSecurityEvents_SecurityEvents_AffectedUser(entity.AffectedUser, snapshot));
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser MapNonNullableIGetSecurityEvents_SecurityEvents_AuthorUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser MapNonNullableIGetSecurityEvents_SecurityEvents_AffectedUser(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("User", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.UserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -6419,31 +6191,31 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User>
+    public partial class GetSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AuthorUser_User>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper;
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles> _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_AuthorUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles> getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper));
         }
 
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public GetSecurityEvents_SecurityEvents_AuthorUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(entity.Role, snapshot));
+            return new GetSecurityEvents_SecurityEvents_AuthorUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_Role(entity.Role, snapshot));
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AuthorUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_AuthorUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -6451,31 +6223,31 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User>
+    public partial class GetSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.UserEntity, GetSecurityEvents_SecurityEvents_AffectedUser_User>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper;
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper)
+        private readonly global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles> _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper;
+        public GetSecurityEvents_SecurityEvents_AffectedUser_UserFromUserEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles> getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper));
+            _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper = getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper));
         }
 
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public GetSecurityEvents_SecurityEvents_AffectedUser_User Map(global::ServerApp.State.UserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(entity.Role, snapshot));
+            return new GetSecurityEvents_SecurityEvents_AffectedUser_User(entity.Id, entity.Email, MapNonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_Role(entity.Role, snapshot));
         }
 
-        private global::ServerApp.IGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        private global::ServerApp.IGetSecurityEvents_SecurityEvents_AffectedUser_Role MapNonNullableIGetSecurityEvents_SecurityEvents_AffectedUser_Role(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
             if (entityId.Name.Equals("Roles", global::System.StringComparison.Ordinal))
             {
-                return _getSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
+                return _getSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper.Map(snapshot.GetEntity<global::ServerApp.State.RolesEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
@@ -6483,42 +6255,42 @@ namespace ServerApp.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles>
+    public partial class GetSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        public GetSecurityEvents_SecurityEvents_AuthorUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
         }
 
-        public GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetSecurityEvents_SecurityEvents_Nodes_AuthorUser_Role_Roles(entity.Name);
+            return new GetSecurityEvents_SecurityEvents_AuthorUser_Role_Roles(entity.Name);
         }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "15.1.9.0")]
-    public partial class GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles>
+    public partial class GetSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper : global::StrawberryShake.IEntityMapper<global::ServerApp.State.RolesEntity, GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        public GetSecurityEvents_SecurityEvents_AffectedUser_Role_RolesFromRolesEntityMapper(global::StrawberryShake.IEntityStore entityStore)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
         }
 
-        public GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        public GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles Map(global::ServerApp.State.RolesEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
             if (snapshot is null)
             {
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetSecurityEvents_SecurityEvents_Nodes_AffectedUser_Role_Roles(entity.Name);
+            return new GetSecurityEvents_SecurityEvents_AffectedUser_Role_Roles(entity.Name);
         }
     }
 

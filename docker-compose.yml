@@ -22,6 +22,9 @@ services:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=CommunicationDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
       - ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
+      - LocalToken__SigningKey=mysupersecretdevelopmentkeythatishugelylong1234567890
+      - LocalToken__Issuer=MyAppIssuer
+      - LocalToken__Audience=MyAppAudience
     ports:
       - "5000:80" # host:container
     networks:
@@ -46,6 +49,9 @@ services:
       - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Password=yourpassword
+      - LocalToken__SigningKey=mysupersecretdevelopmentkeythatishugelylong1234567890
+      - LocalToken__Issuer=MyAppIssuer
+      - LocalToken__Audience=MyAppAudience
     volumes:
       - ${HOME}/.aspnet/https:/https:ro
     ports:

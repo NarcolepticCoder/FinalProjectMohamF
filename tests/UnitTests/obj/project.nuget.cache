@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ckB1zFDGmV0=",
+  "dgSpecHash": "RT3DBTNfduM=",
   "success": true,
   "projectFilePath": "/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/tests/UnitTests/UnitTests.csproj",
   "expectedPackageFiles": [
@@ -51,6 +51,7 @@
     "/Users/yorkmacbook017/.nuget/packages/hotchocolate.utilities/15.1.9/hotchocolate.utilities.15.1.9.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/hotchocolate.utilities.dependencyinjection/15.1.9/hotchocolate.utilities.dependencyinjection.15.1.9.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/hotchocolate.validation/15.1.9/hotchocolate.validation.15.1.9.nupkg.sha512",
+    "/Users/yorkmacbook017/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.11/microsoft.aspnetcore.authentication.jwtbearer.8.0.11.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/8.0.19/microsoft.aspnetcore.authentication.openidconnect.8.0.19.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/microsoft.aspnetcore.authorization/8.0.0/microsoft.aspnetcore.authorization.8.0.0.nupkg.sha512",
     "/Users/yorkmacbook017/.nuget/packages/microsoft.aspnetcore.components/8.0.0/microsoft.aspnetcore.components.8.0.0.nupkg.sha512",

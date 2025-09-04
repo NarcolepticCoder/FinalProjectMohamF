@@ -89,8 +89,8 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/.graphqlrc.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/appsettings.Development.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/appsettings.json
-/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp.staticwebassets.endpoints.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp.staticwebassets.runtime.json
+/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp.staticwebassets.endpoints.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp.deps.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/bin/Debug/net8.0/ServerApp.runtimeconfig.json
@@ -156,6 +156,7 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.MvcApplicationPartsAssemblyInfo.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.RazorAssemblyInfo.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.RazorAssemblyInfo.cs
+/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.sourcelink.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/rjimswa.dswa.cache.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
@@ -173,4 +174,3 @@
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.pdb
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.genruntimeconfig.cache
 /Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ref/ServerApp.dll
-/Users/yorkmacbook017/Desktop/tsg-zelis-okta-MohamedFarrag/ServerApp/obj/Debug/net8.0/ServerApp.sourcelink.json
