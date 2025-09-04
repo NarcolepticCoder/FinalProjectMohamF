@@ -1,23 +1,21 @@
 query GetSecurityEvents {
   securityEvents {
-    nodes {
+    id
+    eventType
+    occurredUtc
+    details
+    authorUser {
       id
-      eventType
-      occurredUtc
-      details
-      authorUser {
-        id
-        email
-        role {
-          name
-        }
+      email
+      role {
+        name
       }
-      affectedUser {
-        id
-        email
-        role {
-          name
-        }
+    }
+    affectedUser {
+      id
+      email
+      role {
+        name
       }
     }
   }

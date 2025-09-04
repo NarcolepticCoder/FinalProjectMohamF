@@ -1,5 +1,6 @@
 namespace GraphQL
 {
+    using System.Security.Claims;
     using Data;
     using Data.DTOs;
     using Data.Entities;
@@ -18,21 +19,29 @@ namespace GraphQL
         public IQueryable<Roles> GetRoles([Service] AppDbContext db) =>
             db.Roles;
 
-        [UsePaging]           // optional if you want cursor paging
-        [UseFiltering]        // optional if you want filter args
-        [UseSorting]          // optional if you want sort args
-        public IQueryable<SecurityEvents> GetSecurityEvents(AppDbContext db)
+        //can use if has ViewAuthEvents or RoleChanges
+        [Authorize(Policy = "CanViewAnySecurityEvents")]
+        public IQueryable<SecurityEvents> GetSecurityEvents([Service] AppDbContext db, [Service] IHttpContextAccessor httpContextAccessor)
         {
-            // Ensure newest first
-            return db.SecurityEvents
-                     .Include(e => e.AuthorUser)
-                     .ThenInclude(u => u.Role)
-                     .Include(e => e.AffectedUser)
-                     .ThenInclude(u => u.Role)
-                     .OrderByDescending(e => e.OccurredUtc);
+            var user = httpContextAccessor.HttpContext!.User;
 
+            var canViewAuthEvents = user.HasClaim("permissions", "Audit.ViewAuthEvents");
+            var canViewRoleChanges = user.HasClaim("permissions", "Audit.RoleChanges");
+
+            var events = db.SecurityEvents
+                .Include(e => e.AuthorUser).ThenInclude(u => u.Role)
+                .Include(e => e.AffectedUser).ThenInclude(u => u.Role)
+                .OrderByDescending(e => e.OccurredUtc);
+
+            return events.Where(e =>
+                (canViewAuthEvents && (e.EventType == "LoginSuccess" || e.EventType == "LogoutSuccess")) ||
+                (canViewRoleChanges && e.EventType == "RoleAssigned")
+            );
         }
-        
+
+
+
+
         public async Task<List<ClaimDto>> GetUserClaims(string externalId, [Service] IUserService userService)
         {
             if (string.IsNullOrEmpty(externalId))

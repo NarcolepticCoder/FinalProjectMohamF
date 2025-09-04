@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using ServerApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,22 @@ builder.Services.AddServerSideBlazor();
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllers();
 
-builder.Services
-    .AddServerClient()
-    .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://graphql/graphql"));
+builder.Services.AddSingleton<LocalTokenService>();
+builder.Services.AddHttpContextAccessor();
+
+
+
+
+builder.Services.AddHttpClient(ServerClient.ClientName, client =>
+
+    client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]!))
+    .AddHttpMessageHandler<ApiTokenHandler>();
+
+builder.Services.AddServerClient();
+builder.Services.AddTransient<ApiTokenHandler>();
+
+
+
 
 builder.Services
   .AddAuthentication(options =>
@@ -83,18 +97,20 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("CanViewAuthEvents",
         p => p.RequireClaim("permissions", "Audit.ViewAuthEvents"));
     options.AddPolicy("CanViewRoleChanges",
-        p => p.RequireClaim("permissions", "Audit.ViewRoleChanges"));
-});
-
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]!);
+        p => p.RequireClaim("permissions", "Audit.RoleChanges"));
+    //Policy for SecurityEvents to allow either permission
+    options.AddPolicy("CanViewAnySecurityEvents", policy =>
+        policy.RequireAssertion(ctx =>
+            ctx.User.HasClaim("permissions", "Audit.ViewAuthEvents") ||
+            ctx.User.HasClaim("permissions", "Audit.RoleChanges")));    
 });
 
 
 var app = builder.Build();
 app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.MapControllers();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

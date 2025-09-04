@@ -1,16 +1,47 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using Data;
 using Data.Entities;
 using GraphQL;
+using HotChocolate.Execution;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
+
 
 namespace UnitTests
 {
     public class QueryResolverUnitTests
     {
+        [Fact]
+        public async Task GetUsers_ReturnsAllUsers()
+        {
+            // Arrange: unique DB per test
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseInMemoryDatabase($"{nameof(QueryResolverUnitTests)}.{nameof(GetUsers_ReturnsAllUsers)}")
+                .Options;
+
+            using var db = new AppDbContext(options);
+            var query = new Query();
+
+            var role = new Roles { Id = Guid.NewGuid(), Name = "Admin" };
+            db.AddRange(new User { Id = Guid.NewGuid(), ExternalId = "123", Email = "test123@email.com", Role = role },
+                        new User { Id = Guid.NewGuid(), ExternalId = "321", Email = "test321@email.com", Role = role });
+
+
+            db.Roles.Add(role);
+            await db.SaveChangesAsync();
+            // Act
+            var users = query.GetUsers(db).ToList();
+
+            // Assert
+            Assert.Equal(2, users.Count);                 // exactly 2 users
+            Assert.Contains(users, u => u.Email == "test123@email.com");
+            Assert.Contains(users, u => u.Email == "test321@email.com");
+            Assert.Contains(users, u => u.ExternalId == "123");
+            Assert.Contains(users, u => u.ExternalId == "321");
+
+
+
+        }
         [Fact]
         public async Task GetRoles_ReturnsAllRoles()
         {
@@ -38,11 +69,11 @@ namespace UnitTests
         }
 
         [Fact]
-        public async Task GetSecurityEvents_ReturnsOrderedEvents()
+        public async Task GetSecurityEvents_ReturnsOrderedEvents_WithClaims()
         {
-            // Arrange: unique DB per test
+            // Arrange: unique in-memory DB
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase($"{nameof(QueryResolverUnitTests)}.{nameof(GetSecurityEvents_ReturnsOrderedEvents)}")
+                .UseInMemoryDatabase($"{nameof(QueryResolverUnitTests)}.{nameof(GetSecurityEvents_ReturnsOrderedEvents_WithClaims)}")
                 .Options;
 
             using var db = new AppDbContext(options);
@@ -54,11 +85,12 @@ namespace UnitTests
 
             db.Roles.Add(role);
             db.Users.AddRange(author, affected);
+
             db.SecurityEvents.AddRange(
                 new SecurityEvents
                 {
                     Id = Guid.NewGuid(),
-                    EventType = "Login",
+                    EventType = "LoginSuccess",
                     AuthorUser = author,
                     AffectedUser = affected,
                     OccurredUtc = DateTime.UtcNow.AddMinutes(-10)
@@ -66,23 +98,37 @@ namespace UnitTests
                 new SecurityEvents
                 {
                     Id = Guid.NewGuid(),
-                    EventType = "Logout",
+                    EventType = "LogoutSuccess",
                     AuthorUser = author,
                     AffectedUser = affected,
                     OccurredUtc = DateTime.UtcNow
                 }
             );
+
             await db.SaveChangesAsync();
 
+            // Fake HttpContext with claims
+            var claims = new List<Claim>
+        {
+        new Claim("permissions", "Audit.ViewAuthEvents"),
+        new Claim(ClaimTypes.NameIdentifier, "test-user")
+        };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var principal = new ClaimsPrincipal(identity);
+
+            var context = new DefaultHttpContext { User = principal };
+            var accessor = new HttpContextAccessor { HttpContext = context };
+
             // Act
-            var events = query.GetSecurityEvents(db).ToList();
+            var events = query.GetSecurityEvents(db, accessor).ToList();
 
             // Assert
             Assert.Equal(2, events.Count);
-            Assert.Equal("Logout", events.First().EventType); // newest first
-            Assert.Equal("Login", events.Last().EventType);
+            Assert.Equal("LogoutSuccess", events.First().EventType); // newest first
+            Assert.Equal("LoginSuccess", events.Last().EventType);
             Assert.NotNull(events.First().AuthorUser.Role);
             Assert.NotNull(events.First().AffectedUser.Role);
         }
+      }
+
     }
-}

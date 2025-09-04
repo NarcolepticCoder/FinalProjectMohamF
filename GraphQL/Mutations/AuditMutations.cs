@@ -7,10 +7,6 @@ namespace GraphQL.Mutations
     public class AuditMutations
     {
 
-
-        // Inject the service through constructor
-
-
         public async Task<string> AuditLogin(AuditDto input, [Service] IAuditService auditService)
         {
             await auditService.AuditLoginAsync(input.Email, input.ExternalId, input.Provider!);
