@@ -1,8 +1,10 @@
 using Data.Dtos;
 using GraphQL.Services;
+using HotChocolate.Authorization;
 
 namespace GraphQL.Mutations
 {
+    //no authorize tag as user won't be authenticated here
     [ExtendObjectType(typeof(Mutation))]
     public class AuditMutations
     {
