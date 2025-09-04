@@ -1,21 +1,25 @@
+using System.Security.Claims;
+using Data;
+using Data.DTOs;
+using Data.Entities;
+using GraphQL.Services;
+using HotChocolate;
+using HotChocolate.Authorization;
+using Microsoft.EntityFrameworkCore;
+
 namespace GraphQL
 {
-    using System.Security.Claims;
-    using Data;
-    using Data.DTOs;
-    using Data.Entities;
-    using GraphQL.Services;
-    using HotChocolate;
-    using HotChocolate.Authorization;
-    using Microsoft.EntityFrameworkCore;
 
+    
     public class Query
 
     {
-        
+
+        [Authorize]
         public IQueryable<User> GetUsers([Service] AppDbContext db) =>
             db.Users.Include(u => u.Role);
 
+        [Authorize]
         public IQueryable<Roles> GetRoles([Service] AppDbContext db) =>
             db.Roles;
 
@@ -54,5 +58,5 @@ namespace GraphQL
         }
 
     }
-    
+
 }
