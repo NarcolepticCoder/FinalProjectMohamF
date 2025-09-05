@@ -39,10 +39,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = "BlazorServer", // must match LocalTokenService issuer
+            ValidIssuer = builder.Configuration["LocalToken:Issuer"], // must match LocalTokenService issuer
 
             ValidateAudience = true,
-            ValidAudience = "MyApi", // must match LocalTokenService audience
+            ValidAudience = builder.Configuration["LocalToken:Audience"], // must match LocalTokenService audience
 
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(

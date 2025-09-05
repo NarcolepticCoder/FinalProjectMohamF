@@ -27,6 +27,7 @@ public static class AuthEventHandlers
         });
     }
 
+    //logout for Okta
     public static async Task AuditLogoutAsync(RedirectContext context)
     {
         var client = context.HttpContext.RequestServices.GetRequiredService<IServerClient>();
@@ -47,6 +48,7 @@ public static class AuthEventHandlers
         });
     }
 
+    //Logout for google, requires httpContext
     public static async Task AuditLogoutLocalAsync(HttpContext context)
     {
         var client = context.RequestServices.GetRequiredService<IServerClient>();
@@ -67,6 +69,7 @@ public static class AuthEventHandlers
         });
     }
 
+    //add claims to DB/USer
     public static async Task AttachUserClaimsAsync(TokenValidatedContext context)
     {
         var externalId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;

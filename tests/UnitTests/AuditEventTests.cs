@@ -53,7 +53,7 @@ namespace UnitTests
             // --- Act ---
             await service.AssignUserRoleAsync(affectedUserId, newRole.Id, authorUserId);
 
-
+            // --- Assert ---
             mockRepo.Verify(r => r.AddSecurityEventAsync(It.Is<SecurityEvents>(e =>
             e.EventType == "RoleAssigned" &&
             e.AuthorUserId == authorUserId &&
@@ -133,12 +133,11 @@ namespace UnitTests
 
             // Instantiate the service
             var service = new AuditService(repoMock.Object);
-            // --- Act ---
             
-
+            // --- Act ---
             await service.AuditLogoutAsync(email, externalId);
 
-
+            // --- Assert ---
             repoMock.Verify(r => r.AddAuditEventAsync(
                 It.Is<Data.Entities.SecurityEvents>(e =>
                     e.EventType == "LogoutSuccess" &&

@@ -10,7 +10,8 @@ namespace GraphQL.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
-
+        
+        //service that populates claims and changes user role
         public UserService(IUserRepository repo)
         {
             _repo = repo;

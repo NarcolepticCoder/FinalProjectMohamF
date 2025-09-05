@@ -109,10 +109,10 @@ namespace UnitTests
 
             // Fake HttpContext with claims
             var claims = new List<Claim>
-        {
-        new Claim("permissions", "Audit.ViewAuthEvents"),
-        new Claim(ClaimTypes.NameIdentifier, "test-user")
-        };
+            {
+                new Claim("permissions", "Audit.ViewAuthEvents"),
+                new Claim(ClaimTypes.NameIdentifier, "test-user")
+            };
             var identity = new ClaimsIdentity(claims, "TestAuthType");
             var principal = new ClaimsPrincipal(identity);
 
