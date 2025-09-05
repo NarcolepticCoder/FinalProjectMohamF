@@ -18,9 +18,9 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<LocalTokenService>();
 builder.Services.AddHttpContextAccessor();
 
-
-
-
+/* Create HTTP Client for Strawberry shake
+ * to communicate tokens/GRAPHQL with API
+ */
 builder.Services.AddHttpClient(ServerClient.ClientName, client =>
 
     client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]!))
@@ -30,8 +30,7 @@ builder.Services.AddServerClient();
 builder.Services.AddTransient<ApiTokenHandler>();
 
 
-
-
+//OIDC providers Okta/Google
 builder.Services
   .AddAuthentication(options =>
   {
@@ -108,11 +107,12 @@ builder.Services.AddAuthorization(options =>
 
 
 var app = builder.Build();
-app.UseAuthentication();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -12,6 +12,7 @@ namespace ServerApp.UserTokens {
             _config = config;
         }
 
+        //local custom token to be sent to the API
         public string CreateApiToken(ClaimsPrincipal user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["LocalToken:SigningKey"]!));
@@ -23,8 +24,8 @@ namespace ServerApp.UserTokens {
 
 
             var token = new JwtSecurityToken(
-                issuer: "BlazorServer",
-                audience: "MyApi",
+                issuer: _config["LocalToken:Issuer"],
+                audience: _config["LocalToken:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: creds);

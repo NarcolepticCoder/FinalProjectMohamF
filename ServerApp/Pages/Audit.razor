@@ -11,7 +11,7 @@
 
 @if (!isReady)
 {
-    <p>Loading events...</p>
+    
 }
 else
 {
@@ -21,9 +21,13 @@ else
         <!-- Left Column: Auth Events -->
         <div class="col-md-6">
             <h5>Auth Events</h5>
-            @if (authEvents is null || !authEvents.Any())
+            @if (!authorizedAuthEvents)
             {
                 <p class="text-muted">Insufficient access. Contact your admin.</p>
+            }
+            else if (authEvents is null || !authEvents.Any())
+            {
+                <p class="text-muted">No authentication events recorded yet.</p>
             }
             else
             {
@@ -63,9 +67,13 @@ else
         <!-- Right Column: Role Changes -->
         <div class="col-md-6">
             <h5>Role Changes</h5>
-            @if (roleEvents is null || !roleEvents.Any())
+            @if (!authorizedRoleChanges)
             {
                 <p class="text-muted">Insufficient access. Contact your admin.</p>
+            }
+            else if (roleEvents is null || !roleEvents.Any())
+            {
+                <p class="text-muted">No role changes recorded yet.</p>
             }
             else
             {
@@ -105,12 +113,26 @@ else
 }
 
 @code {
+
+    //isReady ensures user has correct claims on first user login
     private bool isReady = false;
     private List<IGetSecurityEvents_SecurityEvents>? authEvents;
     private List<IGetSecurityEvents_SecurityEvents>? roleEvents;
+    private bool authorizedRoleChanges;
+    
+    private bool authorizedAuthEvents;
 
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var externalId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        var result = await GraphQLClient.GetUserClaims.ExecuteAsync(externalId!);
+        authorizedRoleChanges = result.Data?.UserClaims.Any(c => c.Value == "Audit.RoleChanges") ?? false;
+
+        authorizedAuthEvents = result.Data?.UserClaims.Any(c => c.Value == "Audit.ViewAuthEvents") ?? false;
+
         var eventsResult = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
         var events = eventsResult.Data?.SecurityEvents?.ToList() ?? new();
 

@@ -15,18 +15,19 @@ public class ApiTokenHandler : DelegatingHandler
 
     }
 
+    //send token to GraphQL for authorization
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        var user = _httpContextAccessor.HttpContext?.User;
-        if (user?.Identity?.IsAuthenticated == true)
         {
-            var token = _tokenService.CreateApiToken(user);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var user = _httpContextAccessor.HttpContext?.User;
+            if (user?.Identity?.IsAuthenticated == true)
+            {
+                var token = _tokenService.CreateApiToken(user);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
+            }
+
+            return await base.SendAsync(request, cancellationToken);
         }
-
-        return await base.SendAsync(request, cancellationToken);
-    }
 
 
   }
