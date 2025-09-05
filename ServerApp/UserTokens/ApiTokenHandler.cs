@@ -1,9 +1,9 @@
 using System.Net.Http.Headers;
-
+namespace ServerApp.UserTokens {
 public class ApiTokenHandler : DelegatingHandler
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    
+
     private readonly LocalTokenService _tokenService;
 
 
@@ -11,7 +11,7 @@ public class ApiTokenHandler : DelegatingHandler
     {
         _httpContextAccessor = httpContextAccessor;
         _tokenService = tokenService;
-    
+
 
     }
 
@@ -22,11 +22,12 @@ public class ApiTokenHandler : DelegatingHandler
         {
             var token = _tokenService.CreateApiToken(user);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
+
         }
 
         return await base.SendAsync(request, cancellationToken);
     }
 
 
+  }
 }

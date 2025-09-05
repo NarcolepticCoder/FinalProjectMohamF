@@ -1,6 +1,6 @@
 {
   "schema": "schema.graphql",
-  "documents": "**/*.graphql",
+  "documents": "SchemaGraphQL/**/*.graphql",
   "extensions": {
     "strawberryShake": {
       "name": "ServerClient",

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using ServerApp;
+using ServerApp.UserTokens;
 
 var builder = WebApplication.CreateBuilder(args);
 

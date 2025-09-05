@@ -7,7 +7,6 @@
 @inject IServerClient GraphQLClient
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-
 <PageTitle>Security Audit Dashboard</PageTitle>
 
 @if (!isReady)
@@ -19,6 +18,7 @@ else
     <h3>Security Audit Dashboard</h3>
 
     <div class="row">
+        <!-- Left Column: Auth Events -->
         <div class="col-md-6">
             <h5>Auth Events</h5>
             @if (authEvents is null || !authEvents.Any())
@@ -27,20 +27,40 @@ else
             }
             else
             {
-                <ul class="list-group">
-                    @foreach (var ev in authEvents)
-                    {
-                        <li class="list-group-item">
-                            <strong>@ev.OccurredUtc.ToLocalTime():</strong>
-                            @ev.AffectedUser.Email → @ev.EventType
-                            <br />
-                            <small>@ev.Details</small>
-                        </li>
-                    }
-                </ul>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Event</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in authEvents)
+                        {
+                            <tr>
+                                <td>@ev.OccurredUtc.ToLocalTime()</td>
+                                <td>
+                                    @if (ev.AffectedUser is not null)
+                                    {
+                                        @ev.AffectedUser.Email
+                                    }
+                                    else
+                                    {
+                                        <em>—</em>
+                                    }
+                                </td>
+                                <td>@ev.EventType</td>
+                                <td>@ev.Details</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
         </div>
 
+        <!-- Right Column: Role Changes -->
         <div class="col-md-6">
             <h5>Role Changes</h5>
             @if (roleEvents is null || !roleEvents.Any())
@@ -49,17 +69,36 @@ else
             }
             else
             {
-                <ul class="list-group">
-                    @foreach (var ev in roleEvents)
-                    {
-                        <li class="list-group-item">
-                            <strong>@ev.OccurredUtc.ToLocalTime():</strong>
-                            AuthUser: @ev.AuthorUser.Email Changed @ev.AffectedUser.Email
-                            <br />
-                            <small>@ev.Details</small>
-                        </li>
-                    }
-                </ul>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Actor → Target</th>
+                            <th>Event</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in roleEvents)
+                        {
+                            <tr>
+                                <td>@ev.OccurredUtc.ToLocalTime()</td>
+                                <td>
+                                    @if (ev.AuthorUser is not null && ev.AffectedUser is not null)
+                                    {
+                                        @($"{ev.AuthorUser.Email} → {ev.AffectedUser.Email}")
+                                    }
+                                    else
+                                    {
+                                        <em>—</em>
+                                    }
+                                </td>
+                                <td>@ev.EventType</td>
+                                <td>@ev.Details</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
         </div>
     </div>
@@ -72,11 +111,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // Call GetSecurityEvents without passing claims
         var eventsResult = await GraphQLClient.GetSecurityEvents.ExecuteAsync();
         var events = eventsResult.Data?.SecurityEvents?.ToList() ?? new();
 
-        // Split events by type for UI
         authEvents = events
             .Where(e => e.EventType is "LoginSuccess" or "LogoutSuccess")
             .OrderByDescending(e => e.OccurredUtc)
