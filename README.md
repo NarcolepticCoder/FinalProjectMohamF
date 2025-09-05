@@ -1,3 +1,6 @@
+dotnet restore
+ To restore project dependencies
+
 dotnet dev-certs https -ep ~/.aspnet/https/aspnetapp.pfx -p yourpassword
 dotnet dev-certs https --trust
  To create certs in this project as they are required for docker to run server on https.
