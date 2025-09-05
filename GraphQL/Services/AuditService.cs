@@ -7,6 +7,7 @@ namespace GraphQL.Services
 {
     private readonly IAuditRepository _repo;
 
+    //Service that maps events to be stored in db.
     public AuditService(IAuditRepository repo)
     {
         _repo = repo;
